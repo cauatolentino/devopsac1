@@ -1,0 +1,253 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.example:Grupo12_PraticaATDD >-------------------
+[INFO] Building Grupo12_PraticaATDD 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (prepare-agent) @ Grupo12_PraticaATDD ---
+[INFO] argLine set to -javaagent:C:\\Users\\cauat\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.13\\org.jacoco.agent-0.8.13-runtime.jar=destfile=C:\\Users\\cauat\\Grupo12_PraticaATDD\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ Grupo12_PraticaATDD ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ Grupo12_PraticaATDD ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ Grupo12_PraticaATDD ---
+[INFO] skip non existing resourceDirectory C:\Users\cauat\Grupo12_PraticaATDD\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ Grupo12_PraticaATDD ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ Grupo12_PraticaATDD ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.6/surefire-junit-platform-3.5.6.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.6/surefire-junit-platform-3.5.6.pom (5.2 kB at 12 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/3.5.6/surefire-providers-3.5.6.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/3.5.6/surefire-providers-3.5.6.pom (2.5 kB at 14 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-java5/3.5.6/common-java5-3.5.6.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-java5/3.5.6/common-java5-3.5.6.pom (3.1 kB at 18 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom (3.2 kB at 47 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom (2.8 kB at 47 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom (3.0 kB at 6.1 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.6/surefire-junit-platform-3.5.6.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.6/surefire-junit-platform-3.5.6.jar (35 kB at 191 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-java5/3.5.6/common-java5-3.5.6.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar (152 kB at 1.4 MB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar (256 kB at 1.6 MB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-java5/3.5.6/common-java5-3.5.6.jar (18 kB at 87 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar (208 kB at 49 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.pom (3.2 kB at 61 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar (246 kB at 3.1 MB/s)
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[ERROR] Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.118 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[ERROR] com.example.grupo12_praticaatdd.domaintest.AlunoTest.deveCriarAlunoSemCursosGanhos -- Time elapsed: 0.076 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Ana> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at com.example.grupo12_praticaatdd.domaintest.AlunoTest.deveCriarAlunoSemCursosGanhos(AlunoTest.java:23)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.AlunoTest.naoDeveCriarAlunoComNomeNulo -- Time elapsed: 0.009 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.AlunoTest.naoDeveCriarAlunoComNomeNulo(AlunoTest.java:41)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.AlunoTest.naoDeveCriarAlunoComNomeEmBranco -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.AlunoTest.naoDeveCriarAlunoComNomeEmBranco(AlunoTest.java:47)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.AlunoTest.deveIncrementarCursosGanhos -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <2> but was: <0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
+	at com.example.grupo12_praticaatdd.domaintest.AlunoTest.deveIncrementarCursosGanhos(AlunoTest.java:35)
+
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ForumTest
+[ERROR] Tests run: 6, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 0.020 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.domaintest.ForumTest
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ForumTest.naoDeveRegistrarParticipacaoNula -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.ForumTest.naoDeveRegistrarParticipacaoNula(ForumTest.java:92)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ForumTest.devePremiarAlunoComMaiorEngajamento -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.example.grupo12_praticaatdd.domain.Aluno.getNome()" because "premiado" is null
+	at com.example.grupo12_praticaatdd.domaintest.ForumTest.devePremiarAlunoComMaiorEngajamento(ForumTest.java:48)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ForumTest.deveListarAsParticipacoesRegistradas -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
+	at com.example.grupo12_praticaatdd.domaintest.ForumTest.deveListarAsParticipacoesRegistradas(ForumTest.java:104)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ForumTest.somenteAlunoDeMaiorEngajamentoEPremiado -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.example.grupo12_praticaatdd.domain.Aluno.getNome()" because "premiado" is null
+	at com.example.grupo12_praticaatdd.domaintest.ForumTest.somenteAlunoDeMaiorEngajamentoEPremiado(ForumTest.java:68)
+
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[ERROR] Tests run: 5, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 0.019 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.deveExporOsDadosDaParticipacao -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <com.example.grupo12_praticaatdd.domain.Aluno@438bad7c> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.deveExporOsDadosDaParticipacao(ParticipacaoForumTest.java:42)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoComTopicosNegativos -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoComTopicosNegativos(ParticipacaoForumTest.java:58)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoComComentariosNegativos -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoComComentariosNegativos(ParticipacaoForumTest.java:66)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.engajamentoDeveSomarTopicosEComentarios -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <15> but was: <0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
+	at com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.engajamentoDeveSomarTopicosEComentarios(ParticipacaoForumTest.java:32)
+
+[ERROR] com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoSemAluno -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest.naoDeveCriarParticipacaoSemAluno(ParticipacaoForumTest.java:50)
+
+[INFO] Running com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+19:47:31.895 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:32.071 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+19:47:32.216 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:32.217 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-16T19:47:32.586-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Starting Grupo12PraticaAtddApplicationTests using Java 21.0.9 with PID 24980 (started by cauat in C:\Users\cauat\Grupo12_PraticaATDD)
+2026-09-16T19:47:32.592-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2026-09-16T19:47:33.239-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-16T19:47:33.262-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 JPA repository interfaces.
+2026-09-16T19:47:33.693-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-16T19:47:34.011-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:1a460322-57c0-4f62-8a40-3902a1b2d4ff user=SA
+2026-09-16T19:47:34.014-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-16T19:47:34.063-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-16T19:47:34.148-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-16T19:47:34.779-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-16T19:47:34.892-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:1a460322-57c0-4f62-8a40-3902a1b2d4ff]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 1A460322-57C0-4F62-8A40-3902A1B2D4FF/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-16T19:47:35.397-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-16T19:47:35.430-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-16T19:47:35.512-03:00  WARN 24980 --- [Grupo12_PraticaATDD] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-16T19:47:36.035-03:00  INFO 24980 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Started Grupo12PraticaAtddApplicationTests in 3.754 seconds (process running for 5.649)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\cauat\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.030 s -- in com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   AlunoTest.deveCriarAlunoSemCursosGanhos:23 expected: <Ana> but was: <null>
+[ERROR]   AlunoTest.deveIncrementarCursosGanhos:35 expected: <2> but was: <0>
+[ERROR]   AlunoTest.naoDeveCriarAlunoComNomeEmBranco:47 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   AlunoTest.naoDeveCriarAlunoComNomeNulo:41 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   ForumTest.deveListarAsParticipacoesRegistradas:104 expected: <1> but was: <0>
+[ERROR]   ForumTest.naoDeveRegistrarParticipacaoNula:92 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   ParticipacaoForumTest.deveExporOsDadosDaParticipacao:42 expected: <com.example.grupo12_praticaatdd.domain.Aluno@438bad7c> but was: <null>
+[ERROR]   ParticipacaoForumTest.engajamentoDeveSomarTopicosEComentarios:32 expected: <15> but was: <0>
+[ERROR]   ParticipacaoForumTest.naoDeveCriarParticipacaoComComentariosNegativos:66 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   ParticipacaoForumTest.naoDeveCriarParticipacaoComTopicosNegativos:58 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   ParticipacaoForumTest.naoDeveCriarParticipacaoSemAluno:50 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR] Errors: 
+[ERROR]   ForumTest.devePremiarAlunoComMaiorEngajamento:48 NullPointer Cannot invoke "com.example.grupo12_praticaatdd.domain.Aluno.getNome()" because "premiado" is null
+[ERROR]   ForumTest.somenteAlunoDeMaiorEngajamentoEPremiado:68 NullPointer Cannot invoke "com.example.grupo12_praticaatdd.domain.Aluno.getNome()" because "premiado" is null
+[INFO] 
+[ERROR] Tests run: 16, Failures: 11, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  14.045 s
+[INFO] Finished at: 2026-09-16T19:47:36-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project Grupo12_PraticaATDD: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\cauat\Grupo12_PraticaATDD\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
