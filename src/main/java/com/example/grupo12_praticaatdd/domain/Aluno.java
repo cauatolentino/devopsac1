@@ -3,24 +3,33 @@ package com.example.grupo12_praticaatdd.domain;
 /**
  * Aluno assinante da plataforma de Educacao Continuada Gamificada.
  *
- * FASE RED do TDD: a classe existe apenas com a assinatura dos metodos para
- * que a suite de testes compile e falhe.
+ * FASE GREEN do TDD: implementacao mais simples que faz os testes passarem.
  */
 public class Aluno {
 
+    private final String nome;
+    private int cursosGanhos;
+
     public Aluno(String nome) {
-        // RED - ainda nao implementado
+        if (nome == null) {
+            throw new IllegalArgumentException("Nome do aluno e obrigatorio");
+        }
+        if (nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do aluno e obrigatorio");
+        }
+        this.nome = nome;
+        this.cursosGanhos = 0;
     }
 
     public String getNome() {
-        return null;
+        return nome;
     }
 
     public int getCursosGanhos() {
-        return 0;
+        return cursosGanhos;
     }
 
     public void ganharCurso() {
-        // RED - ainda nao implementado
+        this.cursosGanhos = this.cursosGanhos + 1;
     }
 }

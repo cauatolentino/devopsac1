@@ -3,27 +3,42 @@ package com.example.grupo12_praticaatdd.domain;
 /**
  * Participacao de um aluno no forum durante o mes corrente.
  *
- * FASE RED do TDD: apenas as assinaturas.
+ * FASE GREEN do TDD: implementacao mais simples que faz os testes passarem.
  */
 public class ParticipacaoForum {
 
+    private final Aluno aluno;
+    private final int topicosEscritos;
+    private final int comentariosAjuda;
+
     public ParticipacaoForum(Aluno aluno, int topicosEscritos, int comentariosAjuda) {
-        // RED - ainda nao implementado
+        if (aluno == null) {
+            throw new IllegalArgumentException("Aluno e obrigatorio");
+        }
+        if (topicosEscritos < 0) {
+            throw new IllegalArgumentException("Quantidade de topicos nao pode ser negativa");
+        }
+        if (comentariosAjuda < 0) {
+            throw new IllegalArgumentException("Quantidade de comentarios nao pode ser negativa");
+        }
+        this.aluno = aluno;
+        this.topicosEscritos = topicosEscritos;
+        this.comentariosAjuda = comentariosAjuda;
     }
 
     public Aluno getAluno() {
-        return null;
+        return aluno;
     }
 
     public int getTopicosEscritos() {
-        return 0;
+        return topicosEscritos;
     }
 
     public int getComentariosAjuda() {
-        return 0;
+        return comentariosAjuda;
     }
 
     public int getEngajamento() {
-        return 0;
+        return topicosEscritos + comentariosAjuda;
     }
 }
