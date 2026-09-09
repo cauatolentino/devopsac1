@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParticipacaoForum.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.domain</a> &gt; <span class="el_source">ParticipacaoForum.java</span></div><h1>ParticipacaoForum.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.domain;
+
+/**
+ * Participacao de um aluno no forum durante o mes corrente.
+ *
+ * FASE BLUE do TDD: as duas validacoes de quantidade negativa foram unificadas
+ * e as mensagens viraram constantes.
+ */
+public class ParticipacaoForum {
+
+    private static final String ALUNO_OBRIGATORIO = &quot;Aluno e obrigatorio&quot;;
+    private static final String QUANTIDADE_NEGATIVA =
+            &quot;Quantidade de topicos e de comentarios nao pode ser negativa&quot;;
+
+    private final Aluno aluno;
+    private final int topicosEscritos;
+    private final int comentariosAjuda;
+
+<span class="fc" id="L19">    public ParticipacaoForum(Aluno aluno, int topicosEscritos, int comentariosAjuda) {</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (aluno == null) {</span>
+<span class="fc" id="L21">            throw new IllegalArgumentException(ALUNO_OBRIGATORIO);</span>
+        }
+<span class="fc bfc" id="L23" title="All 4 branches covered.">        if (topicosEscritos &lt; 0 || comentariosAjuda &lt; 0) {</span>
+<span class="fc" id="L24">            throw new IllegalArgumentException(QUANTIDADE_NEGATIVA);</span>
+        }
+<span class="fc" id="L26">        this.aluno = aluno;</span>
+<span class="fc" id="L27">        this.topicosEscritos = topicosEscritos;</span>
+<span class="fc" id="L28">        this.comentariosAjuda = comentariosAjuda;</span>
+<span class="fc" id="L29">    }</span>
+
+    public Aluno getAluno() {
+<span class="fc" id="L32">        return aluno;</span>
+    }
+
+    public int getTopicosEscritos() {
+<span class="fc" id="L36">        return topicosEscritos;</span>
+    }
+
+    public int getComentariosAjuda() {
+<span class="fc" id="L40">        return comentariosAjuda;</span>
+    }
+
+    /**
+     * Engajamento do aluno no mes: topicos escritos + comentarios de ajuda.
+     */
+    public int getEngajamento() {
+<span class="fc" id="L47">        return topicosEscritos + comentariosAjuda;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

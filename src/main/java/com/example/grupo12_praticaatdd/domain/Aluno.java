@@ -3,22 +3,21 @@ package com.example.grupo12_praticaatdd.domain;
 /**
  * Aluno assinante da plataforma de Educacao Continuada Gamificada.
  *
- * FASE GREEN do TDD: implementacao mais simples que faz os testes passarem.
+ * FASE BLUE do TDD: as duas validacoes duplicadas do GREEN viraram uma unica
+ * condicao e a mensagem de erro virou constante.
  */
 public class Aluno {
+
+    private static final String NOME_OBRIGATORIO = "Nome do aluno e obrigatorio";
 
     private final String nome;
     private int cursosGanhos;
 
     public Aluno(String nome) {
-        if (nome == null) {
-            throw new IllegalArgumentException("Nome do aluno e obrigatorio");
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException(NOME_OBRIGATORIO);
         }
-        if (nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome do aluno e obrigatorio");
-        }
-        this.nome = nome;
-        this.cursosGanhos = 0;
+        this.nome = nome.trim();
     }
 
     public String getNome() {
@@ -29,7 +28,10 @@ public class Aluno {
         return cursosGanhos;
     }
 
+    /**
+     * Credita um curso ao aluno como premiacao da gamificacao.
+     */
     public void ganharCurso() {
-        this.cursosGanhos = this.cursosGanhos + 1;
+        cursosGanhos++;
     }
 }

@@ -1,0 +1,4 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,Forum,0,48,0,2,0,16,0,7,0,6
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,Aluno,0,30,0,4,0,9,0,6,0,4
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,ParticipacaoForum,0,43,0,6,0,13,0,8,0,5

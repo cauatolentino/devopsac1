@@ -1,0 +1,115 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.example:Grupo12_PraticaATDD >-------------------
+[INFO] Building Grupo12_PraticaATDD 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ Grupo12_PraticaATDD ---
+[INFO] Deleting C:\Users\cauat\Grupo12_PraticaATDD\target
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (prepare-agent) @ Grupo12_PraticaATDD ---
+[INFO] argLine set to -javaagent:C:\\Users\\cauat\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.13\\org.jacoco.agent-0.8.13-runtime.jar=destfile=C:\\Users\\cauat\\Grupo12_PraticaATDD\\target\\jacoco.exec,excludes=**/Grupo12PraticaAtddApplication.class
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ Grupo12_PraticaATDD ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ Grupo12_PraticaATDD ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ Grupo12_PraticaATDD ---
+[INFO] skip non existing resourceDirectory C:\Users\cauat\Grupo12_PraticaATDD\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ Grupo12_PraticaATDD ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ Grupo12_PraticaATDD ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s -- in com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ForumTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in com.example.grupo12_praticaatdd.domaintest.ForumTest
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[INFO] Running com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+19:52:34.453 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:52:34.630 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+19:52:34.782 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:52:34.783 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-16T19:52:35.166-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Starting Grupo12PraticaAtddApplicationTests using Java 21.0.9 with PID 19320 (started by cauat in C:\Users\cauat\Grupo12_PraticaATDD)
+2026-09-16T19:52:35.167-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2026-09-16T19:52:35.799-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-16T19:52:35.824-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 JPA repository interfaces.
+2026-09-16T19:52:36.268-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-16T19:52:36.606-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:7c2a111b-a074-46d1-8ba7-06b59e4cc632 user=SA
+2026-09-16T19:52:36.608-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-16T19:52:36.660-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-16T19:52:36.749-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-16T19:52:37.463-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-16T19:52:37.576-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:7c2a111b-a074-46d1-8ba7-06b59e4cc632]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 7C2A111B-A074-46D1-8BA7-06B59E4CC632/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-16T19:52:38.099-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-16T19:52:38.133-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-16T19:52:38.217-03:00  WARN 19320 --- [Grupo12_PraticaATDD] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-16T19:52:38.764-03:00  INFO 19320 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Started Grupo12PraticaAtddApplicationTests in 3.91 seconds (process running for 5.684)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\cauat\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.084 s -- in com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ Grupo12_PraticaATDD ---
+[INFO] Building jar: C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:4.1.1:repackage (repackage) @ Grupo12_PraticaATDD ---
+[INFO] Replacing main artifact C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- jacoco:0.8.13:report (report) @ Grupo12_PraticaATDD ---
+[INFO] Loading execution data file C:\Users\cauat\Grupo12_PraticaATDD\target\jacoco.exec
+[INFO] Analyzed bundle 'Grupo12_PraticaATDD' with 3 classes
+[INFO] 
+[INFO] --- jacoco:0.8.13:check (check-dominio-100) @ Grupo12_PraticaATDD ---
+[INFO] Loading execution data file C:\Users\cauat\Grupo12_PraticaATDD\target\jacoco.exec
+[INFO] Analyzed bundle 'Grupo12_PraticaATDD' with 3 classes
+[INFO] All coverage checks have been met.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.959 s
+[INFO] Finished at: 2026-09-16T19:52:40-03:00
+[INFO] ------------------------------------------------------------------------

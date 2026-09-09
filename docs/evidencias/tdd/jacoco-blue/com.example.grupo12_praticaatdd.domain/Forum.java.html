@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Forum.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.domain</a> &gt; <span class="el_source">Forum.java</span></div><h1>Forum.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.domain;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * Forum da plataforma. Concentra a regra de negocio da US1: ao encerrar o mes,
+ * o aluno de maior engajamento ganha 1 curso.
+ *
+ * FASE BLUE do TDD: a busca do vencedor virou uma unica expressao com Stream,
+ * eliminando as guardas redundantes e o codigo morto que a etapa GREEN deixou.
+ */
+<span class="fc" id="L14">public class Forum {</span>
+
+    private static final String PARTICIPACAO_OBRIGATORIA = &quot;Participacao e obrigatoria&quot;;
+
+<span class="fc" id="L18">    private static final Comparator&lt;ParticipacaoForum&gt; POR_ENGAJAMENTO =</span>
+<span class="fc" id="L19">            Comparator.comparingInt(ParticipacaoForum::getEngajamento);</span>
+
+<span class="fc" id="L21">    private final List&lt;ParticipacaoForum&gt; participacoes = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * Registra a participacao de um aluno no forum no mes corrente.
+     */
+    public void registrar(ParticipacaoForum participacao) {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (participacao == null) {</span>
+<span class="fc" id="L28">            throw new IllegalArgumentException(PARTICIPACAO_OBRIGATORIA);</span>
+        }
+<span class="fc" id="L30">        participacoes.add(participacao);</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Encerra o mes e premia o aluno de maior engajamento com 1 curso.
+     *
+     * @return o aluno premiado, ou {@code null} quando nao houve participacao no mes.
+     */
+    public Aluno premiarAlunoDoMes() {
+<span class="fc" id="L39">        return participacoes.stream()</span>
+<span class="fc" id="L40">                .max(POR_ENGAJAMENTO)</span>
+<span class="fc" id="L41">                .map(this::premiar)</span>
+<span class="fc" id="L42">                .orElse(null);</span>
+    }
+
+    public List&lt;ParticipacaoForum&gt; getParticipacoes() {
+<span class="fc" id="L46">        return List.copyOf(participacoes);</span>
+    }
+
+    private Aluno premiar(ParticipacaoForum vencedora) {
+<span class="fc" id="L50">        Aluno premiado = vencedora.getAluno();</span>
+<span class="fc" id="L51">        premiado.ganharCurso();</span>
+<span class="fc" id="L52">        return premiado;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
