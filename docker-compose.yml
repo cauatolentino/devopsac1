@@ -1,0 +1,61 @@
+services:
+
+  # -------------------------------------------------------------------------
+  # Banco PostgreSQL
+  # -------------------------------------------------------------------------
+  postgres:
+    image: postgres:17-alpine
+    container_name: grupo12-postgres
+    environment:
+      POSTGRES_DB: gamificada
+      POSTGRES_USER: grupo12
+      POSTGRES_PASSWORD: grupo12
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grupo12 -d gamificada"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # -------------------------------------------------------------------------
+  # PgAdmin - administracao do PostgreSQL pelo navegador (http://localhost:5050)
+  # login: grupo12@atdd.com / grupo12
+  # -------------------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: grupo12-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: grupo12@atdd.com
+      PGADMIN_DEFAULT_PASSWORD: grupo12
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # -------------------------------------------------------------------------
+  # API Spring Boot (http://localhost:8080/swagger-ui.html)
+  # -------------------------------------------------------------------------
+  backend:
+    build: .
+    container_name: grupo12-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: gamificada
+      POSTGRES_USER: grupo12
+      POSTGRES_PASSWORD: grupo12
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:

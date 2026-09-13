@@ -1,0 +1,10 @@
+target/
+.git/
+.idea/
+.mvn/
+docs/
+frontend/node_modules/
+frontend/dist/
+*.iml
+*.xlsx
+HELP.md
