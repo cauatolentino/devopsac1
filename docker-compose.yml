@@ -57,5 +57,18 @@ services:
       postgres:
         condition: service_healthy
 
+  # -------------------------------------------------------------------------
+  # Front-end VueJS servido por nginx (http://localhost:5173)
+  # O nginx faz proxy de /api para o backend, entao o navegador so conversa
+  # com uma origem.
+  # -------------------------------------------------------------------------
+  frontend:
+    build: ./frontend
+    container_name: grupo12-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres-data:
