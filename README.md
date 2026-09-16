@@ -42,6 +42,7 @@ Depois de fazer o teste passar, fiz a refatoração e organização da solução
 
 <img width="886" height="169" alt="image" src="https://github.com/user-attachments/assets/8fc20f54-2294-46dd-96b5-a34ece2b02e4" />
 <img width="886" height="266" alt="image" src="https://github.com/user-attachments/assets/80f324e0-0f6f-4a51-a517-861531019c8b" />
+<img width="886" height="546" alt="image" src="https://github.com/user-attachments/assets/588c0879-852e-4e4b-9b87-f8f036a7a3c8" />
 
 
 
