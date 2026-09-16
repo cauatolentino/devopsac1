@@ -1,7 +1,9 @@
 # Grupo 12 — Prática ABB | Gamificação - Pedro Pizzi
 
 CASE:
+
 GAMIFICAÇÃO PARA ENGAJAMENTO DE EDUCAÇÃO CONTINUADA
+
 Uma determinada plataforma vende cursos online e EAD no modelo de assinaturas. O
 aluno paga um valor mensal e tem acesso a um conjunto de cursos para assinatura
 básica. A cada curso terminado e com média acima de 7,0, o aluno tem direito a
@@ -15,9 +17,12 @@ criptomoeda.
 
 
 OBJETIVO INDIVIDUAL:
-Dado alunos com diferentes quantidades de tópicos e comentários de ajuda
-Quando o engajamento de um aluno é calculado
-Então deve ser a soma dos tópicos com os comentários de ajuda
+
+Dado alunos com diferentes quantidades de tópicos e comentários de ajuda.
+
+Quando o engajamento de um aluno é calculado.
+
+Então deve ser a soma dos tópicos com os comentários de ajuda.
 
 
 
