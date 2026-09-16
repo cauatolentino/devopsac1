@@ -2,7 +2,9 @@ package org.example.grupo12_praticaabb.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Henry Kazumi Tanaka - RA: 248060
+ */
 public class Forum {
 
     private final List<ParticipacaoForum> participacoes;

@@ -1,3 +1,6 @@
+### 👨‍💻 Integrante: Henry Tanaka - RA: 248060
+* **User Story (US):** Fórum e Engajamento
+
 ## Evidências TDD
 
 ### 🔴 RED

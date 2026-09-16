@@ -2,6 +2,10 @@ package org.example.grupo12_praticaabb.Entity;
 
 import jakarta.persistence.*;
 
+/**
+ * @author Henry Kazumi Tanaka - RA: 248060
+ */
+
 @Entity
 @Table(name = "participacao_forum")
 public class ParticipacaoForumEntity {

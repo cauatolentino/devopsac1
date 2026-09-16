@@ -1,5 +1,8 @@
 package org.example.grupo12_praticaabb.DTO;
 
+/**
+ * @author Henry Kazumi Tanaka - RA: 248060
+ */
 public class ParticipacaoRequestDTO {
     private Long idAluno;
     private Long idForum;

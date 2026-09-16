@@ -1,5 +1,8 @@
 package org.example.grupo12_praticaabb.Entity;
 
+/**
+ * @author Henry Kazumi Tanaka - RA: 248060
+ */
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
