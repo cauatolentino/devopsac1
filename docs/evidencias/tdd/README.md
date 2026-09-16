@@ -43,7 +43,7 @@ etc.) são testes de guarda que o grupo acrescentou para fechar os casos de bord
 
 ```bash
 # RED: voltar o domínio ao commit dos stubs
-git checkout 8cf3d18 -- src/main/java/com/example/grupo12_praticaatdd/domain
+git checkout ab3cda7 -- src/main/java/com/example/grupo12_praticaatdd/domain
 ./mvnw test          # -> BUILD FAILURE
 
 # GREEN / BLUE: estado atual
