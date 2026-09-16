@@ -1,0 +1,17 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,Aluno,0,30,0,4,0,9,0,6,0,4
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,ParticipacaoForum,0,43,0,6,0,13,0,8,0,5
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.domain,Forum,0,48,0,2,0,16,0,7,0,6
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.dto,ParticipacaoDTO,0,41,0,0,0,8,0,2,0,2
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.dto,AlunoDTO,0,22,0,0,0,2,0,2,0,2
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.dto,NovaParticipacaoDTO,0,15,0,0,0,1,0,1,0,1
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.dto,NovoAlunoDTO,0,6,0,0,0,1,0,1,0,1
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.dto,PremiacaoDTO,0,44,0,0,0,3,0,3,0,3
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.service,RecursoNaoEncontradoException,0,4,0,0,0,2,0,1,0,1
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.service,ForumService,0,232,0,10,0,49,0,15,0,10
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.entity,ParticipacaoForumEntity,0,33,0,0,0,13,0,7,0,7
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.entity,AlunoEntity,0,43,0,2,0,15,0,8,0,7
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.config,OpenApiConfig,0,23,0,0,0,6,0,2,0,2
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.controller,ErroDTO,0,15,0,0,0,1,0,1,0,1
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.controller,TratadorDeErros,0,28,0,0,0,5,0,4,0,4
+Grupo12_PraticaATDD,com.example.grupo12_praticaatdd.controller,ForumController,0,36,0,0,0,9,0,6,0,6

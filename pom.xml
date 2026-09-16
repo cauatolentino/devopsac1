@@ -135,12 +135,34 @@
                         </goals>
                         <configuration>
                             <rules>
+                                <!-- o dominio construido por TDD precisa ficar 100% -->
                                 <rule>
                                     <element>PACKAGE</element>
                                     <includes>
                                         <include>com.example.grupo12_praticaatdd.domain</include>
                                     </includes>
                                     <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.00</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.00</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                                <!-- e o projeto inteiro tambem chegou a 100% -->
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.00</minimum>
+                                        </limit>
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>

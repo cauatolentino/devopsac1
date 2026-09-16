@@ -50,3 +50,23 @@ git checkout 8cf3d18 -- src/main/java/com/example/grupo12_praticaatdd/domain
 git checkout HEAD -- src/main/java/com/example/grupo12_praticaatdd/domain
 ./mvnw clean verify  # -> BUILD SUCCESS + jacoco:check em 100%
 ```
+
+## Suíte completa (estado final da entrega)
+
+Depois do ciclo TDD o grupo acrescentou os testes das demais camadas e os cenários do Cucumber:
+
+| Classe de teste | Testes | O que cobre |
+|---|---|---|
+| `domaintest.AlunoTest` | 4 | regras do Aluno |
+| `domaintest.ParticipacaoForumTest` | 5 | cálculo do engajamento (cenário 2) |
+| `domaintest.ForumTest` | 6 | premiação do mês (cenários 1, 3 e 4) |
+| `repository.ParticipacaoForumRepositoryTest` | 4 | persistência JPA no H2 |
+| `service.ForumServiceTest` | 9 | casos de uso ponta a ponta |
+| `controller.ForumControllerTest` | 9 | contrato HTTP, 400 e 404 |
+| `bdd.ExecutarCenariosBddTest` | 8 | cenários Gherkin (29 passos) |
+| `Grupo12PraticaAtddApplicationTests` | 1 | carga do contexto Spring |
+| **Total** | **46** | |
+
+Log completo em [`04-suite-completa.txt`](04-suite-completa.txt) e cobertura em
+[`jacoco-final/index.html`](jacoco-final/index.html): **100% de instruções, linhas e branches em
+todos os pacotes da aplicação**. O `jacoco:check` do `pom.xml` quebra o build se isso regredir.

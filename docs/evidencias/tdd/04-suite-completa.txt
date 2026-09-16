@@ -1,0 +1,753 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.example:Grupo12_PraticaATDD >-------------------
+[INFO] Building Grupo12_PraticaATDD 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ Grupo12_PraticaATDD ---
+[INFO] Deleting C:\Users\cauat\Grupo12_PraticaATDD\target
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (prepare-agent) @ Grupo12_PraticaATDD ---
+[INFO] argLine set to -javaagent:C:\\Users\\cauat\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.13\\org.jacoco.agent-0.8.13-runtime.jar=destfile=C:\\Users\\cauat\\Grupo12_PraticaATDD\\target\\jacoco.exec,excludes=**/Grupo12PraticaAtddApplication.class
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ Grupo12_PraticaATDD ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ Grupo12_PraticaATDD ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 19 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ Grupo12_PraticaATDD ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ Grupo12_PraticaATDD ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 9 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ Grupo12_PraticaATDD ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+set. 16, 2026 8:31:06 PM org.junit.platform.launcher.core.DiscoveryIssueNotifier logIssues
+WARNING: TestEngine with ID 'junit-platform-suite' encountered a non-critical issue during test discovery:
+
+(1) [WARNING] [cucumber] The classpath resource selector 'features' should not be used to select features in a package. Use the package selector with 'features' instead (via @Suite com.example.grupo12_praticaatdd.bdd.ExecutarCenariosBddTest).
+[INFO] Running com.example.grupo12_praticaatdd.controller.ForumControllerTest
+20:31:07.344 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.controller.ForumControllerTest]: ForumControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:31:07.600 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.controller.ForumControllerTest
+20:31:07.603 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.controller.ForumControllerTest]: ForumControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:31:07.614 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.controller.ForumControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-16T20:31:08.116-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.controller.ForumControllerTest     : Starting ForumControllerTest using Java 21.0.9 with PID 24336 (started by cauat in C:\Users\cauat\Grupo12_PraticaATDD)
+2026-09-16T20:31:08.118-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.controller.ForumControllerTest     : No active profile set, falling back to 1 default profile: "default"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\cauat\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-16T20:31:11.181-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-16T20:31:11.182-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-16T20:31:11.189-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2026-09-16T20:31:11.258-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.controller.ForumControllerTest     : Started ForumControllerTest in 3.551 seconds (process running for 5.61)
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.016 s -- in com.example.grupo12_praticaatdd.controller.ForumControllerTest
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ForumTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s -- in com.example.grupo12_praticaatdd.domaintest.ForumTest
+[INFO] Running com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[INFO] Running com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+2026-09-16T20:31:12.077-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:12.092-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+2026-09-16T20:31:12.100-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests]: Grupo12PraticaAtddApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:12.102-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-16T20:31:12.148-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Starting Grupo12PraticaAtddApplicationTests using Java 21.0.9 with PID 24336 (started by cauat in C:\Users\cauat\Grupo12_PraticaATDD)
+2026-09-16T20:31:12.148-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2026-09-16T20:31:12.757-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-16T20:31:12.831-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 2 JPA repository interfaces.
+2026-09-16T20:31:13.356-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-16T20:31:13.455-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-16T20:31:13.884-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-16T20:31:13.930-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-16T20:31:14.262-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:gamificada user=SA
+2026-09-16T20:31:14.264-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-16T20:31:14.347-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:gamificada]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: GAMIFICADA/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-16T20:31:15.379-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    create table aluno (
+        id bigint generated by default as identity,
+        cursos_ganhos integer not null,
+        nome varchar(120) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table participacao_forum (
+        id bigint generated by default as identity,
+        comentarios_ajuda integer not null,
+        mes_referencia varchar(7) not null,
+        topicos_escritos integer not null,
+        aluno_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists aluno 
+       drop constraint if exists UK5bm6vwkwqo7gnnhwqd8ged3ed
+Hibernate: 
+    alter table if exists aluno 
+       add constraint UK5bm6vwkwqo7gnnhwqd8ged3ed unique (nome)
+Hibernate: 
+    alter table if exists participacao_forum 
+       add constraint FKdt3k5hurksos6iu2aqbuwhn71 
+       foreign key (aluno_id) 
+       references aluno
+2026-09-16T20:31:15.463-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-16T20:31:15.530-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-16T20:31:15.848-03:00  WARN 24336 --- [Grupo12_PraticaATDD] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-16T20:31:16.141-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.b.h.a.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:gamificada'
+2026-09-16T20:31:16.238-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.Grupo12PraticaAtddApplicationTests : Started Grupo12PraticaAtddApplicationTests in 4.128 seconds (process running for 10.589)
+2026-09-16T20:31:16.239-03:00  WARN 24336 --- [Grupo12_PraticaATDD] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-09-16T20:31:16.239-03:00  WARN 24336 --- [Grupo12_PraticaATDD] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.170 s -- in com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+[INFO] Running com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest
+2026-09-16T20:31:16.246-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest]: ParticipacaoForumRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:16.268-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest
+2026-09-16T20:31:16.268-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest]: ParticipacaoForumRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:16.278-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-16T20:31:16.302-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.r.ParticipacaoForumRepositoryTest  : Starting ParticipacaoForumRepositoryTest using Java 21.0.9 with PID 24336 (started by cauat in C:\Users\cauat\Grupo12_PraticaATDD)
+2026-09-16T20:31:16.303-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.r.ParticipacaoForumRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2026-09-16T20:31:16.359-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-16T20:31:16.369-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
+2026-09-16T20:31:16.379-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-09-16T20:31:16.394-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:4e13a1dc-a887-4c71-9773-64eb9f0d8151;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-09-16T20:31:16.411-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-16T20:31:16.442-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-16T20:31:16.444-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:4e13a1dc-a887-4c71-9773-64eb9f0d8151]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 4E13A1DC-A887-4C71-9773-64EB9F0D8151/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-16T20:31:16.480-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    create table aluno (
+        id bigint generated by default as identity,
+        cursos_ganhos integer not null,
+        nome varchar(120) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table participacao_forum (
+        id bigint generated by default as identity,
+        comentarios_ajuda integer not null,
+        mes_referencia varchar(7) not null,
+        topicos_escritos integer not null,
+        aluno_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists aluno 
+       drop constraint if exists UK5bm6vwkwqo7gnnhwqd8ged3ed
+Hibernate: 
+    alter table if exists aluno 
+       add constraint UK5bm6vwkwqo7gnnhwqd8ged3ed unique (nome)
+Hibernate: 
+    alter table if exists participacao_forum 
+       add constraint FKdt3k5hurksos6iu2aqbuwhn71 
+       foreign key (aluno_id) 
+       references aluno
+2026-09-16T20:31:16.487-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-16T20:31:16.516-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] c.e.g.r.ParticipacaoForumRepositoryTest  : Started ParticipacaoForumRepositoryTest in 0.235 seconds (process running for 10.868)
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        pfe1_0.id,
+        pfe1_0.aluno_id,
+        pfe1_0.comentarios_ajuda,
+        pfe1_0.mes_referencia,
+        pfe1_0.topicos_escritos 
+    from
+        participacao_forum pfe1_0 
+    where
+        pfe1_0.mes_referencia=?
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.903 s -- in com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest
+[INFO] Running com.example.grupo12_praticaatdd.service.ForumServiceTest
+2026-09-16T20:31:17.149-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.service.ForumServiceTest]: ForumServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:17.157-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.service.ForumServiceTest
+2026-09-16T20:31:17.158-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.grupo12_praticaatdd.service.ForumServiceTest]: ForumServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-16T20:31:17.159-03:00  INFO 24336 --- [Grupo12_PraticaATDD] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplication for test class com.example.grupo12_praticaatdd.service.ForumServiceTest
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        pfe1_0.id,
+        pfe1_0.aluno_id,
+        pfe1_0.comentarios_ajuda,
+        pfe1_0.mes_referencia,
+        pfe1_0.topicos_escritos 
+    from
+        participacao_forum pfe1_0 
+    where
+        pfe1_0.mes_referencia=?
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        pfe1_0.id,
+        pfe1_0.aluno_id,
+        pfe1_0.comentarios_ajuda,
+        pfe1_0.mes_referencia,
+        pfe1_0.topicos_escritos 
+    from
+        participacao_forum pfe1_0 
+    where
+        pfe1_0.mes_referencia=?
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    select
+        pfe1_0.id,
+        pfe1_0.aluno_id,
+        pfe1_0.comentarios_ajuda,
+        pfe1_0.mes_referencia,
+        pfe1_0.topicos_escritos 
+    from
+        participacao_forum pfe1_0 
+    where
+        pfe1_0.mes_referencia=?
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        aluno
+        (cursos_ganhos, nome, id) 
+    values
+        (?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0 
+    where
+        ae1_0.nome=?
+Hibernate: 
+    insert 
+    into
+        participacao_forum
+        (aluno_id, comentarios_ajuda, mes_referencia, topicos_escritos, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        pfe1_0.id,
+        pfe1_0.aluno_id,
+        pfe1_0.comentarios_ajuda,
+        pfe1_0.mes_referencia,
+        pfe1_0.topicos_escritos 
+    from
+        participacao_forum pfe1_0 
+    where
+        pfe1_0.mes_referencia=?
+Hibernate: 
+    update
+        aluno 
+    set
+        cursos_ganhos=?,
+        nome=? 
+    where
+        id=?
+Hibernate: 
+    select
+        ae1_0.id,
+        ae1_0.cursos_ganhos,
+        ae1_0.nome 
+    from
+        aluno ae1_0
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.143 s -- in com.example.grupo12_praticaatdd.service.ForumServiceTest
+[INFO] Running com.example.grupo12_praticaatdd.bdd.ExecutarCenariosBddTest
+
+@us1 @cenario1 @caua-tolentino
+Cenário: Premiar o aluno com maior engajamento               # classpath:features/premiacao_forum.feature:11
+  ? Dado um fórum com a participação de vários alunos no mês # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.umForumComParticipacoes(java.util.List)
+      | aluno | topicos | comentarios |
+      | Ana   | 10      | 5           |
+      | Bruno | 3       | 4           |
+  ? E com engajamentos diferentes                            # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.comEngajamentosDiferentes()
+  ? Quando o mês é encerrado                                 # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oMesEEncerrado()
+  ? Então o aluno "Ana" deve ser premiado                    # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oAlunoDeveSerPremiado(java.lang.String)
+  ? E "Ana" deve ter 1 curso ganho                           # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.deveTerCursoGanho(java.lang.String,int)
+
+@us1 @cenario2 @pedro-pizzi
+Cenário: Calcular o engajamento de um aluno                                 # classpath:features/premiacao_forum.feature:23
+  ? Dado que o aluno "Ana" escreveu 10 tópicos e fez 5 comentários de ajuda # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.queOAlunoEscreveu(java.lang.String,int,int)
+  ? Quando o engajamento dele é calculado                                   # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoECalculado()
+  ? Então o engajamento deve ser 15                                         # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoDeveSer(int)
+
+@us1 @cenario3 @henry-tanaka
+Cenário: Somente o aluno de maior engajamento é premiado     # classpath:features/premiacao_forum.feature:30
+  ? Dado um fórum com a participação de vários alunos no mês # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.umForumComParticipacoes(java.util.List)
+      | aluno | topicos | comentarios |
+      | Bruno | 3       | 4           |
+      | Ana   | 2       | 1           |
+      | Carla | 12      | 8           |
+  ? Quando o mês é encerrado                                 # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oMesEEncerrado()
+  ? Então o aluno "Carla" deve ser premiado                  # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oAlunoDeveSerPremiado(java.lang.String)
+  ? E "Carla" deve ter 1 curso ganho                         # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.deveTerCursoGanho(java.lang.String,int)
+  ? E "Ana" deve ter 0 cursos ganhos                         # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.deveTerCursosGanhos(java.lang.String,int)
+  ? E "Bruno" deve ter 0 cursos ganhos                       # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.deveTerCursosGanhos(java.lang.String,int)
+
+@us1 @cenario4 @caua-tolentino
+Cenário: Mês sem nenhuma participação não premia ninguém # classpath:features/premiacao_forum.feature:44
+  ? Dado um fórum sem nenhuma participação no mês        # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.umForumSemParticipacoes()
+  ? Quando o mês é encerrado                             # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oMesEEncerrado()
+  ? Então nenhum aluno deve ser premiado                 # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.nenhumAlunoDeveSerPremiado()
+
+@us1 @regras
+Esquema do Cenário: O engajamento é sempre a soma de tópicos e comentários de ajuda # classpath:features/premiacao_forum.feature:58
+  ? Dado que o aluno "Ana" escreveu 10 tópicos e fez 5 comentários de ajuda         # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.queOAlunoEscreveu(java.lang.String,int,int)
+  ? Quando o engajamento dele é calculado                                           # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoECalculado()
+  ? Então o engajamento deve ser 15                                                 # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoDeveSer(int)
+
+@us1 @regras
+Esquema do Cenário: O engajamento é sempre a soma de tópicos e comentários de ajuda # classpath:features/premiacao_forum.feature:59
+  ? Dado que o aluno "Bruno" escreveu 3 tópicos e fez 4 comentários de ajuda        # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.queOAlunoEscreveu(java.lang.String,int,int)
+  ? Quando o engajamento dele é calculado                                           # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoECalculado()
+  ? Então o engajamento deve ser 7                                                  # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoDeveSer(int)
+
+@us1 @regras
+Esquema do Cenário: O engajamento é sempre a soma de tópicos e comentários de ajuda # classpath:features/premiacao_forum.feature:60
+  ? Dado que o aluno "Carla" escreveu 12 tópicos e fez 8 comentários de ajuda       # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.queOAlunoEscreveu(java.lang.String,int,int)
+  ? Quando o engajamento dele é calculado                                           # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoECalculado()
+  ? Então o engajamento deve ser 20                                                 # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoDeveSer(int)
+
+@us1 @regras
+Esquema do Cenário: O engajamento é sempre a soma de tópicos e comentários de ajuda # classpath:features/premiacao_forum.feature:61
+  ? Dado que o aluno "Diego" escreveu 0 tópicos e fez 0 comentários de ajuda        # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.queOAlunoEscreveu(java.lang.String,int,int)
+  ? Quando o engajamento dele é calculado                                           # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoECalculado()
+  ? Então o engajamento deve ser 0                                                  # com.example.grupo12_praticaatdd.bdd.PremiacaoForumSteps.oEngajamentoDeveSer(int)
+
+8 scenarios (8 passed)
+29 steps (29 passed)
+0m 0.162s
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.544 s -- in com.example.grupo12_praticaatdd.bdd.ExecutarCenariosBddTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 46, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ Grupo12_PraticaATDD ---
+[INFO] Building jar: C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:4.1.1:repackage (repackage) @ Grupo12_PraticaATDD ---
+[INFO] Replacing main artifact C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\cauat\Grupo12_PraticaATDD\target\Grupo12_PraticaATDD-0.0.1-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- jacoco:0.8.13:report (report) @ Grupo12_PraticaATDD ---
+[INFO] Loading execution data file C:\Users\cauat\Grupo12_PraticaATDD\target\jacoco.exec
+[INFO] Analyzed bundle 'Grupo12_PraticaATDD' with 16 classes
+[INFO] 
+[INFO] --- jacoco:0.8.13:check (check-dominio-100) @ Grupo12_PraticaATDD ---
+[INFO] Loading execution data file C:\Users\cauat\Grupo12_PraticaATDD\target\jacoco.exec
+[INFO] Analyzed bundle 'Grupo12_PraticaATDD' with 16 classes
+[INFO] All coverage checks have been met.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  17.274 s
+[INFO] Finished at: 2026-09-16T20:31:19-03:00
+[INFO] ------------------------------------------------------------------------

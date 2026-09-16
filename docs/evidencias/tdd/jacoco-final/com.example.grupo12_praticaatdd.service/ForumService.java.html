@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ForumService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.service</a> &gt; <span class="el_source">ForumService.java</span></div><h1>ForumService.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.service;
+
+import com.example.grupo12_praticaatdd.domain.Aluno;
+import com.example.grupo12_praticaatdd.domain.Forum;
+import com.example.grupo12_praticaatdd.domain.ParticipacaoForum;
+import com.example.grupo12_praticaatdd.dto.AlunoDTO;
+import com.example.grupo12_praticaatdd.dto.NovaParticipacaoDTO;
+import com.example.grupo12_praticaatdd.dto.NovoAlunoDTO;
+import com.example.grupo12_praticaatdd.dto.ParticipacaoDTO;
+import com.example.grupo12_praticaatdd.dto.PremiacaoDTO;
+import com.example.grupo12_praticaatdd.entity.AlunoEntity;
+import com.example.grupo12_praticaatdd.entity.ParticipacaoForumEntity;
+import com.example.grupo12_praticaatdd.repository.AlunoRepository;
+import com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+/**
+ * Orquestra os casos de uso da US1.
+ *
+ * A regra de negocio em si nao mora aqui: o service carrega os dados do banco,
+ * monta o {@link Forum} do pacote de dominio (construido por TDD) e persiste o
+ * resultado. Assim a regra continua testavel sem Spring e sem banco.
+ */
+@Service
+public class ForumService {
+
+<span class="fc" id="L34">    private static final Pattern MES_REFERENCIA = Pattern.compile(&quot;\\d{4}-\\d{2}&quot;);</span>
+
+    private final AlunoRepository alunoRepository;
+    private final ParticipacaoForumRepository participacaoRepository;
+
+    public ForumService(AlunoRepository alunoRepository,
+<span class="fc" id="L40">                        ParticipacaoForumRepository participacaoRepository) {</span>
+<span class="fc" id="L41">        this.alunoRepository = alunoRepository;</span>
+<span class="fc" id="L42">        this.participacaoRepository = participacaoRepository;</span>
+<span class="fc" id="L43">    }</span>
+
+    @Transactional
+    public AlunoDTO cadastrarAluno(NovoAlunoDTO novoAluno) {
+        // valida o nome pelas regras do dominio antes de tocar no banco
+<span class="fc" id="L48">        Aluno aluno = new Aluno(novoAluno.nome());</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (alunoRepository.existsByNome(aluno.getNome())) {</span>
+<span class="fc" id="L51">            throw new IllegalArgumentException(&quot;Ja existe um aluno chamado &quot; + aluno.getNome());</span>
+        }
+<span class="fc" id="L53">        return AlunoDTO.de(alunoRepository.save(new AlunoEntity(aluno.getNome())));</span>
+    }
+
+    @Transactional(readOnly = true)
+    public List&lt;AlunoDTO&gt; listarAlunos() {
+<span class="fc" id="L58">        return alunoRepository.findAll().stream()</span>
+<span class="fc" id="L59">                .map(AlunoDTO::de)</span>
+<span class="fc" id="L60">                .toList();</span>
+    }
+
+    @Transactional
+    public ParticipacaoDTO registrarParticipacao(NovaParticipacaoDTO nova) {
+<span class="fc" id="L65">        String mes = validarMesReferencia(nova.mesReferencia());</span>
+<span class="fc" id="L66">        AlunoEntity alunoEntity = buscarAluno(nova.nomeAluno());</span>
+
+        // as validacoes de quantidade negativa vem do dominio
+<span class="fc" id="L69">        new ParticipacaoForum(alunoEntity.paraDominio(), nova.topicosEscritos(), nova.comentariosAjuda());</span>
+
+<span class="fc" id="L71">        ParticipacaoForumEntity entidade = new ParticipacaoForumEntity(</span>
+<span class="fc" id="L72">                alunoEntity, nova.topicosEscritos(), nova.comentariosAjuda(), mes);</span>
+<span class="fc" id="L73">        return ParticipacaoDTO.de(participacaoRepository.save(entidade));</span>
+    }
+
+    /**
+     * Ranking de engajamento do mes, do maior para o menor.
+     */
+    @Transactional(readOnly = true)
+    public List&lt;ParticipacaoDTO&gt; listarEngajamentoDoMes(String mesReferencia) {
+<span class="fc" id="L81">        return participacaoRepository.findByMesReferencia(validarMesReferencia(mesReferencia)).stream()</span>
+<span class="fc" id="L82">                .map(ParticipacaoDTO::de)</span>
+<span class="fc" id="L83">                .sorted(Comparator.comparingInt(ParticipacaoDTO::engajamento).reversed())</span>
+<span class="fc" id="L84">                .toList();</span>
+    }
+
+    /**
+     * Encerra o mes e aplica a regra da US1: o aluno de maior engajamento ganha 1 curso.
+     */
+    @Transactional
+    public PremiacaoDTO encerrarMes(String mesReferencia) {
+<span class="fc" id="L92">        String mes = validarMesReferencia(mesReferencia);</span>
+<span class="fc" id="L93">        List&lt;ParticipacaoForumEntity&gt; participacoes = participacaoRepository.findByMesReferencia(mes);</span>
+
+<span class="fc" id="L95">        Forum forum = new Forum();</span>
+<span class="fc" id="L96">        Map&lt;String, AlunoEntity&gt; entidadesPorNome = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L97">        Map&lt;String, ParticipacaoForum&gt; participacoesPorNome = new LinkedHashMap&lt;&gt;();</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        for (ParticipacaoForumEntity entidade : participacoes) {</span>
+<span class="fc" id="L100">            AlunoEntity alunoEntity = entidade.getAluno();</span>
+<span class="fc" id="L101">            String nome = alunoEntity.getNome();</span>
+<span class="fc" id="L102">            entidadesPorNome.put(nome, alunoEntity);</span>
+
+<span class="fc" id="L104">            ParticipacaoForum participacao = new ParticipacaoForum(</span>
+<span class="fc" id="L105">                    alunoEntity.paraDominio(), entidade.getTopicosEscritos(), entidade.getComentariosAjuda());</span>
+<span class="fc" id="L106">            participacoesPorNome.put(nome, participacao);</span>
+<span class="fc" id="L107">            forum.registrar(participacao);</span>
+<span class="fc" id="L108">        }</span>
+
+<span class="fc" id="L110">        Aluno premiado = forum.premiarAlunoDoMes();</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (premiado == null) {</span>
+<span class="fc" id="L112">            return PremiacaoDTO.semPremiacao(mes);</span>
+        }
+
+<span class="fc" id="L115">        AlunoEntity premiadoEntity = entidadesPorNome.get(premiado.getNome());</span>
+<span class="fc" id="L116">        premiadoEntity.setCursosGanhos(premiado.getCursosGanhos());</span>
+<span class="fc" id="L117">        alunoRepository.save(premiadoEntity);</span>
+
+<span class="fc" id="L119">        int engajamento = participacoesPorNome.get(premiado.getNome()).getEngajamento();</span>
+<span class="fc" id="L120">        return PremiacaoDTO.premiado(mes, premiado.getNome(), engajamento, premiado.getCursosGanhos());</span>
+    }
+
+    private AlunoEntity buscarAluno(String nome) {
+<span class="fc" id="L124">        return alunoRepository.findByNome(nome)</span>
+<span class="fc" id="L125">                .orElseThrow(() -&gt; new RecursoNaoEncontradoException(&quot;Aluno nao encontrado: &quot; + nome));</span>
+    }
+
+    private String validarMesReferencia(String mesReferencia) {
+<span class="fc bfc" id="L129" title="All 4 branches covered.">        if (mesReferencia == null || !MES_REFERENCIA.matcher(mesReferencia).matches()) {</span>
+<span class="fc" id="L130">            throw new IllegalArgumentException(</span>
+                    &quot;Mes de referencia deve estar no formato AAAA-MM. Recebido: &quot; + mesReferencia);
+        }
+<span class="fc" id="L133">        return mesReferencia;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

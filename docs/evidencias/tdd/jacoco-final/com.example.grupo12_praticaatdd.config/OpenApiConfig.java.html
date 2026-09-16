@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OpenApiConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.config</a> &gt; <span class="el_source">OpenApiConfig.java</span></div><h1>OpenApiConfig.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Metadados da documentacao exposta em /swagger-ui.html.
+ */
+@Configuration
+<span class="fc" id="L13">public class OpenApiConfig {</span>
+
+    @Bean
+    public OpenAPI apiEducacaoContinuadaGamificada() {
+<span class="fc" id="L17">        return new OpenAPI().info(new Info()</span>
+<span class="fc" id="L18">                .title(&quot;Educacao Continuada Gamificada - API do Forum&quot;)</span>
+<span class="fc" id="L19">                .version(&quot;1.0.0&quot;)</span>
+<span class="fc" id="L20">                .description(&quot;&quot;&quot;</span>
+                        API da US1 do Grupo 12: &quot;EU COMO aluno assinante da plataforma QUERO ser o \
+                        que mais escreve topicos e ajuda outros participantes no forum PARA ganhar \
+                        um curso no final do mes.&quot;
+
+                        A regra de premiacao fica no pacote `domain`, construido por TDD \
+                        (ciclo RED / GREEN / BLUE, 100% de cobertura).&quot;&quot;&quot;)
+<span class="fc" id="L27">                .contact(new Contact().name(&quot;Grupo 12 - Caua Tolentino, Pedro Pizzi, Henry Tanaka&quot;)));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

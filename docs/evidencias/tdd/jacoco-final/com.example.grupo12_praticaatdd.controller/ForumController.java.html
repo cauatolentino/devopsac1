@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ForumController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.controller</a> &gt; <span class="el_source">ForumController.java</span></div><h1>ForumController.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.controller;
+
+import com.example.grupo12_praticaatdd.dto.AlunoDTO;
+import com.example.grupo12_praticaatdd.dto.NovaParticipacaoDTO;
+import com.example.grupo12_praticaatdd.dto.NovoAlunoDTO;
+import com.example.grupo12_praticaatdd.dto.ParticipacaoDTO;
+import com.example.grupo12_praticaatdd.dto.PremiacaoDTO;
+import com.example.grupo12_praticaatdd.service.ForumService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Endpoints REST da US1 - premiacao por engajamento no forum.
+ */
+@RestController
+@RequestMapping(&quot;/api&quot;)
+@CrossOrigin(origins = &quot;*&quot;)
+@Tag(name = &quot;Forum&quot;, description = &quot;US1 - premiacao do aluno com maior engajamento no forum&quot;)
+public class ForumController {
+
+    private final ForumService forumService;
+
+<span class="fc" id="L37">    public ForumController(ForumService forumService) {</span>
+<span class="fc" id="L38">        this.forumService = forumService;</span>
+<span class="fc" id="L39">    }</span>
+
+    @PostMapping(&quot;/alunos&quot;)
+    @Operation(summary = &quot;Cadastra um aluno assinante&quot;)
+    @ApiResponses({
+            @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Aluno cadastrado&quot;),
+            @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Nome em branco ou aluno ja cadastrado&quot;)
+    })
+    public ResponseEntity&lt;AlunoDTO&gt; cadastrarAluno(@RequestBody NovoAlunoDTO novoAluno) {
+<span class="fc" id="L48">        return ResponseEntity.status(HttpStatus.CREATED).body(forumService.cadastrarAluno(novoAluno));</span>
+    }
+
+    @GetMapping(&quot;/alunos&quot;)
+    @Operation(summary = &quot;Lista os alunos e quantos cursos cada um ja ganhou&quot;)
+    public List&lt;AlunoDTO&gt; listarAlunos() {
+<span class="fc" id="L54">        return forumService.listarAlunos();</span>
+    }
+
+    @PostMapping(&quot;/participacoes&quot;)
+    @Operation(summary = &quot;Registra a participacao de um aluno no forum no mes&quot;)
+    @ApiResponses({
+            @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Participacao registrada&quot;),
+            @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Quantidade negativa ou mes invalido&quot;),
+            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Aluno nao cadastrado&quot;)
+    })
+    public ResponseEntity&lt;ParticipacaoDTO&gt; registrarParticipacao(
+            @RequestBody NovaParticipacaoDTO novaParticipacao) {
+<span class="fc" id="L66">        return ResponseEntity.status(HttpStatus.CREATED)</span>
+<span class="fc" id="L67">                .body(forumService.registrarParticipacao(novaParticipacao));</span>
+    }
+
+    @GetMapping(&quot;/forum/engajamento&quot;)
+    @Operation(summary = &quot;Ranking de engajamento do mes, do maior para o menor&quot;)
+    public List&lt;ParticipacaoDTO&gt; engajamentoDoMes(
+            @Parameter(description = &quot;Mes de referencia no formato AAAA-MM&quot;, example = &quot;2026-09&quot;)
+            @RequestParam String mes) {
+<span class="fc" id="L75">        return forumService.listarEngajamentoDoMes(mes);</span>
+    }
+
+    @PostMapping(&quot;/forum/encerrar-mes&quot;)
+    @Operation(summary = &quot;Encerra o mes e premia com 1 curso o aluno de maior engajamento&quot;,
+            description = &quot;Se nao houve nenhuma participacao no mes, ninguem e premiado.&quot;)
+    public PremiacaoDTO encerrarMes(
+            @Parameter(description = &quot;Mes de referencia no formato AAAA-MM&quot;, example = &quot;2026-09&quot;)
+            @RequestParam String mes) {
+<span class="fc" id="L84">        return forumService.encerrarMes(mes);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

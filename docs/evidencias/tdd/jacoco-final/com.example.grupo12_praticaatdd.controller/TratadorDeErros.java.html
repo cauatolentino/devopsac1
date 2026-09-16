@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TratadorDeErros.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.controller</a> &gt; <span class="el_source">TratadorDeErros.java</span></div><h1>TratadorDeErros.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.controller;
+
+import com.example.grupo12_praticaatdd.service.RecursoNaoEncontradoException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+
+/**
+ * Traduz as excecoes do dominio e do service para respostas HTTP.
+ *
+ * As validacoes do dominio (nome em branco, quantidade negativa, mes invalido)
+ * chegam aqui como IllegalArgumentException e viram 400.
+ */
+@RestControllerAdvice
+<span class="fc" id="L18">public class TratadorDeErros {</span>
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity&lt;ErroDTO&gt; regraDeNegocioViolada(IllegalArgumentException excecao) {
+<span class="fc" id="L22">        return resposta(HttpStatus.BAD_REQUEST, excecao.getMessage());</span>
+    }
+
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity&lt;ErroDTO&gt; recursoNaoEncontrado(RecursoNaoEncontradoException excecao) {
+<span class="fc" id="L27">        return resposta(HttpStatus.NOT_FOUND, excecao.getMessage());</span>
+    }
+
+    private ResponseEntity&lt;ErroDTO&gt; resposta(HttpStatus status, String mensagem) {
+<span class="fc" id="L31">        return ResponseEntity.status(status)</span>
+<span class="fc" id="L32">                .body(new ErroDTO(LocalDateTime.now(), status.value(), status.getReasonPhrase(), mensagem));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

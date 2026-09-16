@@ -1,0 +1,49 @@
+===============================================================
+ EVIDENCIA - API rodando via Docker Compose (perfil postgres)
+ Data: 16/09/2026 20:11
+===============================================================
+
+$ curl -X POST http://localhost:8080/api/alunos -d '{"nome":"Ana"}'
+{"id":1,"nome":"Ana","cursosGanhos":0}
+
+$ curl -X POST http://localhost:8080/api/alunos -d '{"nome":"Bruno"}'
+{"id":2,"nome":"Bruno","cursosGanhos":0}
+
+$ curl -X POST http://localhost:8080/api/alunos -d '{"nome":"Carla"}'
+{"id":3,"nome":"Carla","cursosGanhos":0}
+
+--- Cenario 1 e 3: participacoes do mes 2026-09 ---
+$ curl -X POST http://localhost:8080/api/participacoes -d '{"nomeAluno":"Ana","topicosEscritos":10,"comentariosAjuda":5,"mesReferencia":"2026-09"}'
+{"id":1,"nomeAluno":"Ana","topicosEscritos":10,"comentariosAjuda":5,"engajamento":15,"mesReferencia":"2026-09"}
+
+$ curl -X POST http://localhost:8080/api/participacoes -d '{"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"mesReferencia":"2026-09"}'
+{"id":2,"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"engajamento":7,"mesReferencia":"2026-09"}
+
+$ curl -X POST http://localhost:8080/api/participacoes -d '{"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"mesReferencia":"2026-09"}'
+{"id":3,"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"engajamento":20,"mesReferencia":"2026-09"}
+
+--- Ranking de engajamento (maior -> menor) ---
+$ curl 'http://localhost:8080/api/forum/engajamento?mes=2026-09'
+[{"id":3,"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"engajamento":20,"mesReferencia":"2026-09"},{"id":1,"nomeAluno":"Ana","topicosEscritos":10,"comentariosAjuda":5,"engajamento":15,"mesReferencia":"2026-09"},{"id":2,"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"engajamento":7,"mesReferencia":"2026-09"}]
+
+--- CENARIO 1 (Caua Tolentino): encerrar o mes premia o de maior engajamento ---
+$ curl -X POST 'http://localhost:8080/api/forum/encerrar-mes?mes=2026-09'
+{"mesReferencia":"2026-09","houvePremiacao":true,"alunoPremiado":"Carla","engajamento":20,"cursosGanhos":1,"mensagem":"Carla foi o aluno de maior engajamento em 2026-09 e ganhou 1 curso."}
+
+--- CENARIO 3 (Henry Tanaka): somente o lider recebe o curso ---
+$ curl http://localhost:8080/api/alunos
+[{"id":1,"nome":"Ana","cursosGanhos":0},{"id":2,"nome":"Bruno","cursosGanhos":0},{"id":3,"nome":"Carla","cursosGanhos":1}]
+
+--- CENARIO 4 (Caua Tolentino): mes sem participacao nao premia ninguem ---
+$ curl -X POST 'http://localhost:8080/api/forum/encerrar-mes?mes=2026-07'
+{"mesReferencia":"2026-07","houvePremiacao":false,"alunoPremiado":null,"engajamento":0,"cursosGanhos":0,"mensagem":"Nenhuma participacao registrada no forum em 2026-07: nenhum aluno foi premiado."}
+
+--- Tratamento de erro: quantidade negativa -> 400 ---
+$ curl -X POST http://localhost:8080/api/participacoes -d '{"nomeAluno":"Ana","topicosEscritos":-1,...}'
+{"momento":"2026-09-16T23:11:31.997165767","status":400,"erro":"Bad Request","mensagem":"Quantidade de topicos e de comentarios nao pode ser negativa"}
+
+--- Tratamento de erro: aluno inexistente -> 404 ---
+{"momento":"2026-09-16T23:11:32.044874126","status":404,"erro":"Not Found","mensagem":"Aluno nao encontrado: Fulano"}
+
+--- Tratamento de erro: mes fora do formato -> 400 ---
+{"momento":"2026-09-16T23:11:32.088093679","status":400,"erro":"Bad Request","mensagem":"Mes de referencia deve estar no formato AAAA-MM. Recebido: setembro"}

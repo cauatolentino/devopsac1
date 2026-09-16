@@ -34,6 +34,21 @@ services:
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
     ports:
       - "5050:80"
+    volumes:
+      # conexao com o banco ja registrada, sem precisar cadastrar na mao
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+      - ./docker/pgadmin/pgpass:/tmp/pgpass:ro
+    # o entrypoint prepara o arquivo de senha e importa o servidor do servers.json
+    # assim que o pgAdmin termina de criar a propria base de configuracao
+    user: root
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "cp /tmp/pgpass /pgpass && chown 5050:0 /pgpass && chmod 600 /pgpass;
+         (while [ ! -f /var/lib/pgadmin/pgadmin4.db ]; do sleep 1; done; sleep 5;
+          su pgadmin -s /bin/sh -c '/venv/bin/python3 /pgadmin4/setup.py load-servers
+            /pgadmin4/servers.json --user pgadmin4@pgadmin.org --replace') &
+         exec /entrypoint.sh"
     depends_on:
       postgres:
         condition: service_healthy

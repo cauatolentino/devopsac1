@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParticipacaoForumEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Grupo12_PraticaATDD</a> &gt; <a href="index.source.html" class="el_package">com.example.grupo12_praticaatdd.entity</a> &gt; <span class="el_source">ParticipacaoForumEntity.java</span></div><h1>ParticipacaoForumEntity.java</h1><pre class="source lang-java linenums">package com.example.grupo12_praticaatdd.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+/**
+ * Participacao de um aluno no forum em um mes de referencia (formato AAAA-MM).
+ */
+@Entity
+@Table(name = &quot;participacao_forum&quot;)
+public class ParticipacaoForumEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = &quot;aluno_id&quot;, nullable = false)
+    private AlunoEntity aluno;
+
+    @Column(name = &quot;topicos_escritos&quot;, nullable = false)
+    private int topicosEscritos;
+
+    @Column(name = &quot;comentarios_ajuda&quot;, nullable = false)
+    private int comentariosAjuda;
+
+    @Column(name = &quot;mes_referencia&quot;, nullable = false, length = 7)
+    private String mesReferencia;
+
+<span class="fc" id="L37">    protected ParticipacaoForumEntity() {</span>
+        // exigido pelo JPA
+<span class="fc" id="L39">    }</span>
+
+    public ParticipacaoForumEntity(AlunoEntity aluno, int topicosEscritos, int comentariosAjuda,
+<span class="fc" id="L42">                                   String mesReferencia) {</span>
+<span class="fc" id="L43">        this.aluno = aluno;</span>
+<span class="fc" id="L44">        this.topicosEscritos = topicosEscritos;</span>
+<span class="fc" id="L45">        this.comentariosAjuda = comentariosAjuda;</span>
+<span class="fc" id="L46">        this.mesReferencia = mesReferencia;</span>
+<span class="fc" id="L47">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L50">        return id;</span>
+    }
+
+    public AlunoEntity getAluno() {
+<span class="fc" id="L54">        return aluno;</span>
+    }
+
+    public int getTopicosEscritos() {
+<span class="fc" id="L58">        return topicosEscritos;</span>
+    }
+
+    public int getComentariosAjuda() {
+<span class="fc" id="L62">        return comentariosAjuda;</span>
+    }
+
+    public String getMesReferencia() {
+<span class="fc" id="L66">        return mesReferencia;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
