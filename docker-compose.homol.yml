@@ -1,0 +1,81 @@
+# ---------------------------------------------------------------------------
+# Ambiente HOMOL - usado pelo pipeline Jenkins (Jenkinsfile).
+#
+# - Projeto isolado ("grupo12-homol"): nao conflita com o docker-compose.yml de dev.
+# - Portas do host vem de variaveis (definidas no bloco environment do Jenkinsfile).
+# - Os nomes de servico "backend" e "frontend" sao mantidos porque o
+#   frontend/nginx.conf encaminha /api para http://backend:8080.
+# ---------------------------------------------------------------------------
+name: grupo12-homol
+
+services:
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: gamificada
+      POSTGRES_USER: grupo12
+      POSTGRES_PASSWORD: grupo12
+    # sem porta publicada no host: so a rede interna acessa o banco
+    volumes:
+      - postgres-homol-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grupo12 -d gamificada"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: grupo12@atdd.com
+      PGADMIN_DEFAULT_PASSWORD: grupo12
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+      - ./docker/pgadmin/pgpass:/tmp/pgpass:ro
+    user: root
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "cp /tmp/pgpass /pgpass && chown 5050:0 /pgpass && chmod 600 /pgpass;
+         (while [ ! -f /var/lib/pgadmin/pgadmin4.db ]; do sleep 1; done; sleep 5;
+          su pgadmin -s /bin/sh -c '/venv/bin/python3 /pgadmin4/setup.py load-servers
+            /pgadmin4/servers.json --user pgadmin4@pgadmin.org --replace') &
+         exec /entrypoint.sh"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # API Spring Boot. A imagem recebe a tag do build (IMAGE_TAG) para poder
+  # ser publicada no Docker Hub pelo stage opcional do Jenkinsfile.
+  backend:
+    build: .
+    image: ${DOCKER_IMAGE:-andprof/grupo12-pratica-atdd-api}:${IMAGE_TAG:-homol}
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: gamificada
+      POSTGRES_USER: grupo12
+      POSTGRES_PASSWORD: grupo12
+    ports:
+      - "${API_PORT:-8081}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Front-end VueJS + nginx (proxy de /api para o backend)
+  frontend:
+    build: ./frontend
+    image: grupo12-pratica-atdd-frontend:${IMAGE_TAG:-homol}
+    ports:
+      - "${FRONT_PORT:-5174}:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres-homol-data:
