@@ -1,0 +1,23 @@
+# Desafio 6 - stages 7 a 10 do Jenkinsfile executados contra o HOMOL real
+#
+# Os blocos PowerShell dos stages 8, 9 e 10 foram extraidos do Jenkinsfile SEM alteracao e executados
+# em sequencia apos o deploy (stage 7: docker compose -f docker-compose.homol.yml down / up -d).
+# HOMOL: postgres, pgadmin, backend, frontend, ia-recomendacao, rabbitmq, notificacao, prometheus, grafana.
+# Imagens geradas pelo docker compose build (o pytest roda dentro do build de cada imagem Python).
+
+========== 7 - CD - Deploy HOMOL (todos) ==========
+========== 8 - CD - Health Check HOMOL ==========
+[OK] Core (readiness) no ar: http://localhost:8081/actuator/health/readiness
+[OK] IA recomendacao no ar: http://localhost:8001/saude
+[OK] Prometheus no ar: http://localhost:9091/-/ready
+========== 9 - CD - Smoke Test E2E ==========
+[OK] Smoke test E2E aprovado (front -> API -> PostgreSQL).
+========== 10 - Verificacao arquitetural em HOMOL ==========
+[OK] ADR-002: premiacao idempotente (cursosGanhos=1)
+[OK] ADR-004: outbox esvaziado - evento entregue ao broker
+[OK] ADR-003: IA fora -> catalogo padrao (degradado=true), ranking respondendo
+[OK] D6: Prometheus coletando o Core
+[PIPELINE LOCAL] stages 7-10 concluidos com sucesso
+
+# Obs.: uma reexecucao com o MESMO BUILD_NUMBER falha no smoke (aluno smoke-N ja existe no volume
+# persistente do HOMOL). No Jenkins o BUILD_NUMBER e sempre unico; registrado por transparencia.

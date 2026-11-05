@@ -1,0 +1,19 @@
+# Suite completa DEPOIS da refatoracao (./mvnw clean verify)
+# Inclui o novo ArquiteturaModularTest (11 regras ArchUnit) e o gate JaCoCo de 100%
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.585 s -- in com.example.grupo12_praticaatdd.aluno.aplicacao.AlunoServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.example.grupo12_praticaatdd.aluno.dominio.AlunoTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.534 s -- in com.example.grupo12_praticaatdd.aluno.persistencia.AlunoRepositoryTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.794 s -- in com.example.grupo12_praticaatdd.aluno.web.AlunoControllerTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.143 s -- in com.example.grupo12_praticaatdd.engajamento.aplicacao.EngajamentoServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.example.grupo12_praticaatdd.engajamento.dominio.ParticipacaoForumTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 s -- in com.example.grupo12_praticaatdd.engajamento.persistencia.ParticipacaoForumRepositoryTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.634 s -- in com.example.grupo12_praticaatdd.engajamento.web.EngajamentoControllerTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.133 s -- in com.example.grupo12_praticaatdd.premiacao.aplicacao.PremiacaoServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.example.grupo12_praticaatdd.premiacao.dominio.ForumTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.460 s -- in com.example.grupo12_praticaatdd.premiacao.web.PremiacaoControllerTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.460 s -- in com.example.grupo12_praticaatdd.bdd.ExecutarCenariosBddTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.069 s -- in com.example.grupo12_praticaatdd.arquitetura.ArquiteturaModularTest
+[INFO] Tests run: 64, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

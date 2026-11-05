@@ -1,0 +1,51 @@
+# B1 / Desafio 6 - cada alerta VALIDA (ou derruba) uma decisao arquitetural.
+# Metrica tecnica diz "o que esta acontecendo"; aqui cada regra diz "qual ADR esta sendo testado".
+groups:
+  - name: asrs-da-arquitetura
+    rules:
+
+      # ADR-004 (recuperabilidade): broker fora -> eventos esperam no outbox, sem perda.
+      - alert: OutboxAcumulando
+        expr: gamificacao_outbox_pendentes > 0
+        for: 20s
+        labels: {severidade: aviso, adr: ADR-004}
+        annotations:
+          resumo: "Eventos aguardando o broker no outbox"
+          decisao: "Premiacao segue funcionando; notificacoes atrasam mas nao se perdem. Investigar o RabbitMQ."
+
+      # ADR-003 (tolerancia a falhas): IA fora/lenta -> catalogo padrao.
+      - alert: RecomendacaoDegradada
+        expr: |
+          sum(rate(gamificacao_recomendacao_total{origem="catalogo-padrao"}[1m]))
+            / sum(rate(gamificacao_recomendacao_total[1m])) > 0.5
+        for: 20s
+        labels: {severidade: aviso, adr: ADR-003}
+        annotations:
+          resumo: "Mais da metade das recomendacoes vindo do catalogo padrao"
+          decisao: "IA indisponivel ou acima do timeout; fluxo essencial nao e afetado."
+
+      # ADR-001 (gatilho de revisao): p95 do ranking alto = sinal para extrair o modulo engajamento.
+      - alert: RankingLento
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(http_server_requests_seconds_bucket{uri="/api/forum/engajamento"}[5m]))) > 0.3
+        for: 5m
+        labels: {severidade: revisao-arquitetural, adr: ADR-001}
+        annotations:
+          resumo: "p95 do ranking acima de 300 ms por 5 min"
+          decisao: "Gatilho do ADR-001: avaliar extrair o modulo engajamento para um servico."
+
+      # ADR-005 (IoT): dispositivo mandando lixo.
+      - alert: DispositivoComMensagensInvalidas
+        expr: increase(gamificacao_iot_eventos_total{resultado="rejeitado"}[5m]) > 0
+        labels: {severidade: aviso, adr: ADR-005}
+        annotations:
+          resumo: "Mensagens IoT rejeitadas pela camada anticorrupcao"
+
+      # Base de tudo: o Core precisa estar sendo coletado.
+      - alert: CoreSemColeta
+        expr: up{job="core"} == 0
+        for: 15s
+        labels: {severidade: critica}
+        annotations:
+          resumo: "Prometheus nao consegue coletar o Core"

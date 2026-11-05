@@ -1,0 +1,34 @@
+# Desafio 2 - troca de adapter: o MESMO contrato de testes contra 2 implementacoes da porta HistoricoDePremiacoes
+# ContratoHistoricoDePremiacoes (abstrato) -> HistoricoDePremiacoesEmMemoriaTest (fake, sem Spring) e HistoricoDePremiacoesJpaTest (JPA + H2)
+# E o caso de uso rodando so com adapters falsos: PremiacaoServiceUnitarioTest (sem Spring, sem banco)
+
+## premiacao.adaptador.saida.memoria.HistoricoDePremiacoesEmMemoriaTest
+  OK  naoRegistraOMesmoMesDuasVezes  (0.001 s)
+  OK  registraERecuperaPremiacao  (0.002 s)
+  OK  mesSemPremiacaoNaoTemRegistro  (0.0 s)
+## premiacao.adaptador.saida.persistencia.HistoricoDePremiacoesJpaTest
+  OK  naoRegistraOMesmoMesDuasVezes  (0.043 s)
+  OK  registraERecuperaPremiacao  (0.017 s)
+  OK  mesSemPremiacaoNaoTemRegistro  (0.011 s)
+## premiacao.aplicacao.PremiacaoServiceUnitarioTest
+  OK  mesVazioNaoPremia  (0.004 s)
+  OK  premiaOMaiorEngajamento  (0.002 s)
+  OK  mesJaPremiadoNaoPremiaDeNovo  (0.0 s)
+  OK  usaAParticipacaoVencedoraDoAluno  (0.0 s)
+  OK  mesInvalidoERejeitado  (0.001 s)
+## premiacao.aplicacao.PremiacaoServiceTest
+  OK  mesmoMesNaoEPremiadoDuasVezes  (0.036 s)
+  OK  devePremiarAlunoComMaiorEngajamento  (0.024 s)
+  OK  naoDeveAceitarMesForaDoFormato  (0.005 s)
+  OK  premiacaoAcumulaCursosEUsaParticipacaoVencedora  (0.029 s)
+  OK  mesSemParticipacaoNaoPremiaNinguem  (0.007 s)
+  OK  somenteOMaiorEngajamentoRecebeOCurso  (0.022 s)
+
+## Testes de dominio (TDD da AC1) x agora, ignorando package/import:
+  AlunoTest: identico | ParticipacaoForumTest: identico | ForumTest: identico
+  Classes de dominio Aluno, ParticipacaoForum e Forum: identicas
+
+## Suite completa
+[INFO] Tests run: 80, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

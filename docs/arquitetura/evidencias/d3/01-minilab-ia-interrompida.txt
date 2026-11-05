@@ -1,0 +1,34 @@
+# Desafio 3 - mini-lab: Spring Boot consumindo FastAPI e a IA sendo interrompida
+#
+# Core: jar do projeto (H2), porta 18080. IA: imagem grupo12-ia-recomendacao (FastAPI), porta 8000.
+# Timeouts do Core para a IA: conexao 500 ms, leitura 1500 ms (application.properties).
+# O Core NAO foi reiniciado em nenhum momento: so o container Python foi parado/recriado.
+# Roteiro reproduzivel: minilab-d3.sh (nesta pasta). Requer o jar rodando na 18080 e a imagem da IA construida.
+
+## 1. IA no ar
+  GET /api/recomendacoes -> HTTP 200 em 0.109939s
+  corpo: {"aluno":"Carla","cursos":[{"titulo":"Escrita tecnica","motivo":"escreve muitos topicos"},{"titulo":"Documentacao de software","motivo":"perfil autor"},{"titulo":"Fundamentos de engenharia de software","motivo":"base para as proximas conquistas"}],"origem":"ia-recomendacao","degradado":false,"versaoModelo":"heuristico-v1"}
+  fluxo essencial: ranking HTTP 200 (0.040143s) | encerrar-mes HTTP 200 (0.040044s)
+
+## 2. IA interrompida (docker stop) - Core continua rodando, sem restart
+  GET /api/recomendacoes -> HTTP 200 em 0.015593s
+  corpo: {"aluno":"Carla","cursos":[{"titulo":"Fundamentos de engenharia de software","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"},{"titulo":"Como fazer boas perguntas","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"}],"origem":"catalogo-padrao","degradado":true,"versaoModelo":null}
+  fluxo essencial: ranking HTTP 200 (0.007168s) | encerrar-mes HTTP 200 (0.005241s)
+
+## 3. IA lenta (LATENCIA_ARTIFICIAL_MS=5000, timeout de leitura do Core = 1500 ms)
+  GET /api/recomendacoes -> HTTP 200 em 1.511512s
+  corpo: {"aluno":"Carla","cursos":[{"titulo":"Fundamentos de engenharia de software","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"},{"titulo":"Como fazer boas perguntas","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"}],"origem":"catalogo-padrao","degradado":true,"versaoModelo":null}
+  fluxo essencial: ranking HTTP 200 (0.005592s) | encerrar-mes HTTP 200 (0.005381s)
+
+## 4. IA respondendo erro 503 (FALHA_ARTIFICIAL=true)
+  GET /api/recomendacoes -> HTTP 200 em 0.013488s
+  corpo: {"aluno":"Carla","cursos":[{"titulo":"Fundamentos de engenharia de software","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"},{"titulo":"Como fazer boas perguntas","motivo":"sugestao padrao (recomendacao personalizada indisponivel)"}],"origem":"catalogo-padrao","degradado":true,"versaoModelo":null}
+
+## 5. IA volta ao ar (novo deploy so do container Python) - recuperacao automatica
+  GET /api/recomendacoes -> HTTP 200 em 0.011400s
+  corpo: {"aluno":"Carla","cursos":[{"titulo":"Escrita tecnica","motivo":"escreve muitos topicos"},{"titulo":"Documentacao de software","motivo":"perfil autor"},{"titulo":"Fundamentos de engenharia de software","motivo":"base para as proximas conquistas"}],"origem":"ia-recomendacao","degradado":false,"versaoModelo":"heuristico-v1"}
+
+## Log do Core durante as falhas (1 WARN por chamada degradada, nenhum erro 5xx para o cliente)
+WARN 28808 --- [Grupo12_PraticaATDD] [o-18080-exec-10] c.e.g.r.aplicacao.RecomendacaoService    : IA de recomendacao indisponivel, usando catalogo padrao: falha ao chamar a IA: I/O error on POST request for "http://localhost:8000/
+WARN 28808 --- [Grupo12_PraticaATDD] [io-18080-exec-6] c.e.g.r.aplicacao.RecomendacaoService    : IA de recomendacao indisponivel, usando catalogo padrao: falha ao chamar a IA: Error while extracting response for type [com.example
+WARN 28808 --- [Grupo12_PraticaATDD] [io-18080-exec-2] c.e.g.r.aplicacao.RecomendacaoService    : IA de recomendacao indisponivel, usando catalogo padrao: falha ao chamar a IA: 503 Service Unavailable: "{"detail":"modelo indisponi

@@ -1,0 +1,27 @@
+# Desafio 3 - testes automatizados da fronteira com a IA
+
+## Lado Python (pytest dentro do docker build - a imagem so e gerada se passar)
+docker build -t grupo12-ia-recomendacao ia-recomendacao/
+  [teste 7/7] RUN python -m pytest -q tests
+  8 passed in 0.28s
+
+## Lado Java
+### recomendacao.adaptador.saida.ia.MotorDeRecomendacaoHttpTest
+  OK  iaRespondendo  (0.2 s)
+  OK  iaComErro  (0.02 s)
+  OK  respostaInvalida  (0.026 s)
+  OK  iaLenta  (1.218 s)
+  OK  iaForaDoAr  (0.04 s)
+### recomendacao.aplicacao.RecomendacaoServiceTest
+  OK  alunoInexistente  (0.012 s)
+  OK  enviaPerfilCompletoParaAIa  (0.044 s)
+  OK  iaIndisponivelUsaCatalogoPadrao  (0.01 s)
+### recomendacao.adaptador.entrada.web.RecomendacaoControllerTest
+  OK  alunoInexistente  (0.016 s)
+  OK  respostaDegradadaContinua200  (0.024 s)
+  OK  sugestoesDaIa  (0.009 s)
+
+## Suite completa
+[INFO] Tests run: 95, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

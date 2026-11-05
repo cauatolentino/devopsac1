@@ -1,0 +1,81 @@
+# Desafio 5 - mini-lab: simulador publica MQTT; consumidor recebe e transforma o evento
+#
+# Dispositivo (iot-simulador, Python/paho-mqtt) --MQTT QoS1--> RabbitMQ (plugin rabbitmq_mqtt, porta 1883)
+#   topico lab/<lab>/dispositivo/<id>/evento  ==plugin==>  exchange amq.topic, routing key lab.<lab>.dispositivo.<id>.evento
+#   --> fila duravel iot.eventos-laboratorio --AMQP--> Core (ConsumidorDeEventosIot -> TradutorDeMensagemIot -> EventosDeLaboratorioService)
+# UM broker so (o mesmo RabbitMQ do Desafio 4). Roteiro: minilab-d5.sh (nesta pasta).
+
+plugins ativos: Listing plugins with pattern ".*" ... rabbitmq_federation rabbitmq_management rabbitmq_management_agent rabbitmq_mqtt rabbitmq_prometheus rabbitmq_web_dispatch 
+listeners: protocol: http protocol: mqtt protocol: http/prometheus protocol: clustering protocol: amqp 
+
+## 1. Dispositivo online: presenca -> inicio -> conclusao (MQTT QoS 1)
+  publicado leitor-07-1793838765020-00001 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838765020-00002 INICIO_ATIVIDADE     -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838765020-00003 CONCLUSAO_ATIVIDADE  -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+      Core IoT: evento leitor-07-1793838765020-00001 PRESENCA aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838765020-00002 INICIO_ATIVIDADE aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838765020-00003 CONCLUSAO_ATIVIDADE aluno=Carla dispositivo=leitor-07 registrado
+  [21:32:49] GET /api/laboratorio/eventos?aluno=Carla -> leitor-07-1793838765020-00001 leitor-07-1793838765020-00002 leitor-07-1793838765020-00003 
+
+## 2. Conectividade intermitente: dispositivo perde a conexao, bufferiza e descarrega ao voltar
+  publicado leitor-07-1793838770892-00101 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (online)
+  !! conexao perdida - eventos vao para o buffer local
+  bufferizado leitor-07-1793838770892-00102 INICIO_ATIVIDADE (buffer=1)
+  bufferizado leitor-07-1793838770892-00103 CONCLUSAO_ATIVIDADE (buffer=2)
+  bufferizado leitor-07-1793838770892-00104 PRESENCA (buffer=3)
+  >> reconectado - descarregando 3 evento(s) em ordem
+  publicado leitor-07-1793838770892-00102 INICIO_ATIVIDADE     -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (do buffer)
+  publicado leitor-07-1793838770892-00103 CONCLUSAO_ATIVIDADE  -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (do buffer)
+  publicado leitor-07-1793838770892-00104 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (do buffer)
+      Core IoT: evento leitor-07-1793838770892-00101 PRESENCA aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838770892-00102 INICIO_ATIVIDADE aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838770892-00103 CONCLUSAO_ATIVIDADE aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838770892-00104 PRESENCA aluno=Carla dispositivo=leitor-07 registrado
+  [21:32:59] GET /api/laboratorio/eventos?aluno=Carla -> leitor-07-1793838765020-00001 leitor-07-1793838765020-00002 leitor-07-1793838765020-00003 leitor-07-1793838770892-00101 leitor-07-1793838770892-00102 leitor-07-1793838770892-00103 leitor-07-1793838770892-00104 
+
+## 3. Duplicidade: mesmo eventoId entregue 2x (reentrega do QoS 1)
+  publicado leitor-07-1793838780572-00201 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (original)
+  publicado leitor-07-1793838780572-00201 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (REENVIO do mesmo eventoId)
+      Core IoT: evento leitor-07-1793838780572-00201 PRESENCA aluno=Carla dispositivo=leitor-07 registrado
+      Core IoT: DUPLICATA descartada eventoId=leitor-07-1793838780572-00201 dispositivo=leitor-07
+  [21:33:05] GET /api/laboratorio/eventos?aluno=Carla -> leitor-07-1793838765020-00001 leitor-07-1793838765020-00002 leitor-07-1793838765020-00003 leitor-07-1793838770892-00101 leitor-07-1793838770892-00102 leitor-07-1793838770892-00103 leitor-07-1793838770892-00104 leitor-07-1793838780572-00201 
+
+## 3b. Dispositivo RELIGADO (novo boot) publica de novo: eventos novos NAO podem ser confundidos com duplicata
+  publicado leitor-07-1793838786071-00001 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838786071-00002 INICIO_ATIVIDADE     -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838786071-00003 CONCLUSAO_ATIVIDADE  -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838788251-00001 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838788251-00002 INICIO_ATIVIDADE     -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838788251-00003 CONCLUSAO_ATIVIDADE  -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+      Core IoT: evento leitor-07-1793838786071-00001 PRESENCA aluno=Diego dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838786071-00002 INICIO_ATIVIDADE aluno=Diego dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838786071-00003 CONCLUSAO_ATIVIDADE aluno=Diego dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838788251-00001 PRESENCA aluno=Diego dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838788251-00002 INICIO_ATIVIDADE aluno=Diego dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838788251-00003 CONCLUSAO_ATIVIDADE aluno=Diego dispositivo=leitor-07 registrado
+  [21:33:12] GET /api/laboratorio/eventos?aluno=Diego -> leitor-07-1793838786071-00001 leitor-07-1793838786071-00002 leitor-07-1793838786071-00003 leitor-07-1793838788251-00001 leitor-07-1793838788251-00002 leitor-07-1793838788251-00003 
+
+## 4. Payload invalido de um dispositivo com defeito
+  publicado payload invalido -> lab/lab-redes/dispositivo/leitor-07/evento
+  publicado leitor-07-1793838793813-00301 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] (valido, logo depois)
+      Core IoT: mensagem REJEITADA (payload invalido: campo obrigatorio ausente: eventoId) topico=lab.lab-redes.dispositivo.leitor-07.evento
+      Core IoT: evento leitor-07-1793838793813-00301 PRESENCA aluno=Carla dispositivo=leitor-07 registrado
+  [21:33:18] fila iot.eventos-laboratorio: 0 mensagem(ns) esperando
+
+## 5. CORE fora do ar: dispositivos continuam publicando; a fila segura
+  publicado leitor-07-1793838802031-00001 PRESENCA             -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838802031-00002 INICIO_ATIVIDADE     -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  publicado leitor-07-1793838802031-00003 CONCLUSAO_ATIVIDADE  -> lab/lab-redes/dispositivo/leitor-07/evento  [PUBACK recebido] 
+  [21:33:25] fila iot.eventos-laboratorio: 3 mensagem(ns) esperando
+  -> religando o Core (H2 em memoria: so os eventos da fila vao reaparecer)
+  [21:33:42] fila iot.eventos-laboratorio: 0 mensagem(ns) esperando
+      Core IoT: evento leitor-07-1793838802031-00001 PRESENCA aluno=Bruno dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838802031-00002 INICIO_ATIVIDADE aluno=Bruno dispositivo=leitor-07 registrado
+      Core IoT: evento leitor-07-1793838802031-00003 CONCLUSAO_ATIVIDADE aluno=Bruno dispositivo=leitor-07 registrado
+  [21:33:44] GET /api/laboratorio/eventos?aluno=Bruno -> leitor-07-1793838802031-00001 leitor-07-1793838802031-00002 leitor-07-1793838802031-00003 
+
+## 6. Eficiencia de comunicacao (mesmo evento)
+  payload JSON: 160 bytes
+  MQTT PUBLISH QoS1: 209 bytes (conexao TCP mantida aberta; PUBACK de 4 bytes)
+  HTTP/1.1 POST minimo: 298 bytes (+ resposta HTTP, + handshake TLS a cada reconexao)
+  economia por evento: 30%

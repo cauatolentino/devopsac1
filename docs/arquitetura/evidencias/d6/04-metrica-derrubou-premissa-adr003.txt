@@ -1,0 +1,55 @@
+# Desafio 6 - a metrica derrubou uma premissa do ADR-003 (evidencia arquitetural, nao so tecnica)
+#
+# O ADR-003 dizia: 'IA lenta ou fora -> o Core desiste em 1,5 s'. No mini-lab do D3 era verdade (IA em localhost).
+# Em HOMOL a IA e chamada pelo NOME do container. Com o container parado o nome some do DNS do Docker,
+# e a RESOLUCAO DE DNS nao e coberta pelos timeouts de conexao/leitura. O smoke test nao viu nada
+# (a resposta continuava HTTP 200 degradada) - quem mostrou foi o painel 'Latencia da chamada a IA':
+# falhas de 8 s (print grafana-1-antes-do-disjuntor-ia-8s.jpg).
+
+## Medicao direta ANTES (IA parada)
+  IA parada (container stop): HTTP 200 em 4.002705s
+  IA parada (container stop): HTTP 200 em 0.020084s   <- cache negativo de DNS da JVM (alguns segundos)
+  IA parada (container stop): HTTP 200 em 0.030593s
+
+## Correcao 1: disjuntor (circuit breaker) - previsto e ADIADO no ADR-003 'ate as metricas justificarem'
+## IA parada, Core com DISJUNTOR (10 chamadas seguidas)
+  chamada 1: HTTP 200 em 8.199706s degradado=true
+  chamada 2: HTTP 200 em 0.018195s degradado=true
+  chamada 3: HTTP 200 em 0.017802s degradado=true
+  chamada 4: HTTP 200 em 0.014302s degradado=true
+  chamada 5: HTTP 200 em 0.025023s degradado=true
+  chamada 6: HTTP 200 em 0.014275s degradado=true
+  chamada 7: HTTP 200 em 0.014878s degradado=true
+  chamada 8: HTTP 200 em 0.015623s degradado=true
+  chamada 9: HTTP 200 em 0.013401s degradado=true
+  chamada 10: HTTP 200 em 0.014916s degradado=true
+  gamificacao_recomendacao_disjuntor_aberto = 1.0
+  -> IA religada; aguardando o disjuntor (30 s) fazer a chamada de prova
+  chamada de prova: HTTP 200 em 0.075111s origem=ia-recomendacao
+  gamificacao_recomendacao_disjuntor_aberto = 0.0
+
+  -> reduziu a FREQUENCIA (1 chamada lenta a cada 30 s), mas o pior caso ainda era 8,2 s.
+
+## Correcao 2: + prazo TOTAL de 2 s por chamada (cobre DNS, conexao e leitura)
+## IA parada, Core com DISJUNTOR + PRAZO TOTAL de 2 s (10 chamadas seguidas)
+  chamada 1: HTTP 200 em 2.067213s degradado=true
+  chamada 2: HTTP 200 em 1.855192s degradado=true
+  chamada 3: HTTP 200 em 0.014903s degradado=true
+  chamada 4: HTTP 200 em 0.015547s degradado=true
+  chamada 5: HTTP 200 em 0.014472s degradado=true
+  chamada 6: HTTP 200 em 0.014488s degradado=true
+  chamada 7: HTTP 200 em 0.016815s degradado=true
+  chamada 8: HTTP 200 em 0.014164s degradado=true
+  chamada 9: HTTP 200 em 0.014789s degradado=true
+  chamada 10: HTTP 200 em 0.013535s degradado=true
+  gamificacao_recomendacao_disjuntor_aberto = 1.0
+  -> IA religada; aguardando os 30 s do disjuntor
+  chamada de prova: HTTP 200 em 0.049969s origem=ia-recomendacao
+  gamificacao_recomendacao_disjuntor_aberto = 0.0
+
+## Cada correcao foi para HOMOL por DEPLOY INDEPENDENTE do Core (COMPONENTE=core):
+##   docker compose -f docker-compose.homol.yml build backend && ... up -d --no-deps backend
+##   resultado: so o backend reiniciou; os outros 8 containers seguiram no ar.
+
+## Trade-off novo observado: com o disjuntor, a IA que VOLTA so e usada de novo apos ate 30 s
+## (o mini-lab que rodou logo apos o stage 10 do pipeline pegou 100% de fallback por isso).

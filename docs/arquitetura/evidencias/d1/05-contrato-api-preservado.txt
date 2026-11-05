@@ -1,0 +1,44 @@
+# Desafio 1 - o comportamento externo foi preservado
+
+## 1. Contrato OpenAPI (/v3/api-docs) antes x depois
+Rotas e metodos (paths, ignorando tags): IGUAL
+Schemas (components.schemas): IGUAL
+Rotas antes : GET /api/alunos, GET /api/forum/engajamento, POST /api/alunos, POST /api/forum/encerrar-mes, POST /api/participacoes
+Rotas depois: GET /api/alunos, GET /api/forum/engajamento, POST /api/alunos, POST /api/forum/encerrar-mes, POST /api/participacoes
+Tags antes : Forum
+Tags depois: Engajamento, Premiacao, Alunos   <- unica diferenca intencional: 1 tag por modulo no Swagger
+
+## 2. Mesmo roteiro de 15 chamadas HTTP contra o jar ANTES e o jar DEPOIS (H2 limpo)
+Resultado do diff entre as duas execucoes: IDENTICO (nenhuma linha diferente).
+Campo "momento" dos erros removido antes do diff (e um timestamp).
+
+### POST /api/alunos {"nome":"Ana"}
+{"id":1,"nome":"Ana","cursosGanhos":0}
+### POST /api/alunos {"nome":"Bruno"}
+{"id":2,"nome":"Bruno","cursosGanhos":0}
+### POST /api/alunos {"nome":"Carla"}
+{"id":3,"nome":"Carla","cursosGanhos":0}
+### POST /api/alunos {"nome":"Ana"}
+{"status":400,"erro":"Bad Request","mensagem":"Ja existe um aluno chamado Ana"}
+### POST /api/alunos {"nome":"  "}
+{"status":400,"erro":"Bad Request","mensagem":"Nome do aluno e obrigatorio"}
+### POST /api/participacoes {"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"mesReferencia":"2026-09"}
+{"id":1,"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"engajamento":7,"mesReferencia":"2026-09"}
+### POST /api/participacoes {"nomeAluno":"Ana","topicosEscritos":2,"comentariosAjuda":1,"mesReferencia":"2026-09"}
+{"id":2,"nomeAluno":"Ana","topicosEscritos":2,"comentariosAjuda":1,"engajamento":3,"mesReferencia":"2026-09"}
+### POST /api/participacoes {"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"mesReferencia":"2026-09"}
+{"id":3,"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"engajamento":20,"mesReferencia":"2026-09"}
+### POST /api/participacoes {"nomeAluno":"Fulano","topicosEscritos":1,"comentariosAjuda":1,"mesReferencia":"2026-09"}
+{"status":404,"erro":"Not Found","mensagem":"Aluno nao encontrado: Fulano"}
+### POST /api/participacoes {"nomeAluno":"Ana","topicosEscritos":-1,"comentariosAjuda":0,"mesReferencia":"2026-09"}
+{"status":400,"erro":"Bad Request","mensagem":"Quantidade de topicos e de comentarios nao pode ser negativa"}
+### GET /api/forum/engajamento?mes=2026-09 
+[{"id":3,"nomeAluno":"Carla","topicosEscritos":12,"comentariosAjuda":8,"engajamento":20,"mesReferencia":"2026-09"},{"id":1,"nomeAluno":"Bruno","topicosEscritos":3,"comentariosAjuda":4,"engajamento":7,"mesReferencia":"2026-09"},{"id":2,"nomeAluno":"Ana","topicosEscritos":2,"comentariosAjuda":1,"engajamento":3,"mesReferencia":"2026-09"}]
+### GET /api/forum/engajamento?mes=setembro 
+{"status":400,"erro":"Bad Request","mensagem":"Mes de referencia deve estar no formato AAAA-MM. Recebido: setembro"}
+### POST /api/forum/encerrar-mes?mes=2026-09 
+{"mesReferencia":"2026-09","houvePremiacao":true,"alunoPremiado":"Carla","engajamento":20,"cursosGanhos":1,"mensagem":"Carla foi o aluno de maior engajamento em 2026-09 e ganhou 1 curso."}
+### POST /api/forum/encerrar-mes?mes=2026-07 
+{"mesReferencia":"2026-07","houvePremiacao":false,"alunoPremiado":null,"engajamento":0,"cursosGanhos":0,"mensagem":"Nenhuma participacao registrada no forum em 2026-07: nenhum aluno foi premiado."}
+### GET /api/alunos 
+[{"id":1,"nome":"Ana","cursosGanhos":0},{"id":2,"nome":"Bruno","cursosGanhos":0},{"id":3,"nome":"Carla","cursosGanhos":1}]

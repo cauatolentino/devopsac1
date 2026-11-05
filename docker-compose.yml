@@ -66,10 +66,65 @@ services:
       POSTGRES_DB: gamificada
       POSTGRES_USER: grupo12
       POSTGRES_PASSWORD: grupo12
+      # B1 / Desafio 3: servico Python de recomendacao
+      IA_RECOMENDACAO_URL: http://ia-recomendacao:8000
+      # B1 / Desafio 4: broker de eventos (o Core NAO depende dele para subir)
+      RABBITMQ_HOST: rabbitmq
     ports:
       - "8080:8080"
+    # sem depends_on da IA de proposito: o Core sobe e opera mesmo com a IA fora do ar
     depends_on:
       postgres:
+        condition: service_healthy
+
+  # -------------------------------------------------------------------------
+  # B1 / Desafio 3 - IA de recomendacao (Python / FastAPI) - http://localhost:8000/docs
+  # Ciclo de vida proprio: pode ser reconstruido/reiniciado sem tocar no backend.
+  # -------------------------------------------------------------------------
+  ia-recomendacao:
+    build: ./ia-recomendacao
+    container_name: grupo12-ia-recomendacao
+    ports:
+      - "8000:8000"
+
+  # -------------------------------------------------------------------------
+  # B1 / Desafio 4 - RabbitMQ (painel: http://localhost:15672  guest/guest)
+  # -------------------------------------------------------------------------
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: grupo12-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      # B1 / Desafio 5: MQTT para os dispositivos IoT (plugin rabbitmq_mqtt) - sem segundo broker
+      - "1883:1883"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+    healthcheck:
+      # check_port_connectivity: "ping" responde antes da porta AMQP abrir
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # B1 / Desafio 4 - servico de notificacao (RF05): consome notificacao.premiacao
+  notificacao:
+    build: ./notificacao
+    container_name: grupo12-notificacao
+    environment:
+      RABBITMQ_HOST: rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  # B1 / Desafio 5 - simulador de dispositivos de laboratorio (so sobe com: --profile iot)
+  #   docker compose run --rm iot-simulador --host rabbitmq --cenario intermitente
+  iot-simulador:
+    build: ./iot-simulador
+    profiles: ["iot"]
+    depends_on:
+      rabbitmq:
         condition: service_healthy
 
   # -------------------------------------------------------------------------
@@ -85,5 +140,36 @@ services:
     depends_on:
       - backend
 
+  # -------------------------------------------------------------------------
+  # B1 / Desafio 6 - observabilidade (configuracao versionada em docker/)
+  #   Prometheus http://localhost:9090  (alertas: /alerts)
+  #   Grafana    http://localhost:3000  (admin/admin; leitura anonima liberada)
+  # -------------------------------------------------------------------------
+  prometheus:
+    image: prom/prometheus:v2.53.2
+    container_name: grupo12-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./docker/prometheus/alertas.yml:/etc/prometheus/alertas.yml:ro
+
+  grafana:
+    image: grafana/grafana:11.2.2
+    container_name: grupo12-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/arquitetura-b1.json
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./docker/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
 volumes:
   postgres-data:
+  rabbitmq-data:

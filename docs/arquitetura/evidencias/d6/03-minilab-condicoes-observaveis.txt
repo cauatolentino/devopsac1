@@ -1,0 +1,28 @@
+# Desafio 6 - mini-lab: condicoes provocadas e registradas no Prometheus/Grafana (HOMOL)
+# Roteiro: minilab-d6.sh (nesta pasta). Consultas via API do Prometheus (http://localhost:9091).
+
+aguardando 35 s: disjuntor de execucoes anteriores precisa fechar
+## 1. Linha de base: IA no ar, 20 recomendacoes
+  [22:05:32] recomendacoes por origem: ia=20 fallback=81
+  [22:05:32] latencia max da IA: 0.030909171 s
+  [22:05:32] alertas: 
+
+## 2. CONDICAO PROVOCADA: IA fora do ar (docker compose -f docker-compose.homol.yml stop ia-recomendacao)
+  [22:06:09] % degradado (1 min): 100
+  [22:06:09] latencia max de /api/recomendacoes no periodo:  s   | disjuntor aberto: 0
+  [22:06:09] 5xx do Core no periodo: 0
+  [22:06:09] alertas: RecomendacaoDegradada firing
+
+## 3. CONDICAO PROVOCADA: broker fora do ar (docker compose -f docker-compose.homol.yml stop rabbitmq)
+  [22:06:13] POST /encerrar-mes?mes=4683-01 -> HTTP 200 em 0.034665s
+  [22:06:13] POST /encerrar-mes?mes=4683-02 -> HTTP 200 em 0.029159s
+  [22:06:13] POST /encerrar-mes?mes=4683-03 -> HTTP 200 em 0.022362s
+  [22:06:48] gamificacao_outbox_pendentes = 3   | Core readiness: {"status":"UP"}
+  [22:06:48] alertas: OutboxAcumulando firing RecomendacaoDegradada firing
+  -> religando o broker
+  [22:07:10] gamificacao_outbox_pendentes = 0
+  [22:07:20] alertas: 
+  [22:07:20] notificacoes enviadas (log do servico notificacao):
+      NOTIFICACAO enviada Parabens, Lab6! Voce foi o aluno mais engajado do forum em 4683-01
+      NOTIFICACAO enviada Parabens, Lab6! Voce foi o aluno mais engajado do forum em 4683-02
+      NOTIFICACAO enviada Parabens, Lab6! Voce foi o aluno mais engajado do forum em 4683-03

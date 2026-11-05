@@ -1,0 +1,18 @@
+# Desafio 1 - falha simulada: a regra de modularidade realmente bloqueia o build
+#
+# Experimento: adicionamos de proposito no PremiacaoService (modulo premiacao)
+#     private AlunoRepository atalhoProibido;
+# ou seja, o atalho que existia na AC1 (o service lendo direto o repositorio JPA de outra capacidade).
+# Rodamos: ./mvnw test -Dtest=ArquiteturaModularTest   -> BUILD FAILURE (abaixo)
+# Depois o arquivo foi restaurado e a suite completa voltou a passar (04-suite-depois.txt).
+#
+# Observacao: na 1a tentativa a regra usava onlyBeAccessed() e NAO pegou a violacao (so detecta
+# chamadas, nao a declaracao do campo). Trocamos por onlyHaveDependentClassesThat(), que pega
+# qualquer dependencia. A falha simulada serviu para corrigir a propria regra.
+
+[ERROR] Tests run: 11, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.635 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.arquitetura.ArquiteturaModularTest
+Architecture Violation [Priority: MEDIUM] - Rule 'classes that reside in a package 'com.example.grupo12_praticaatdd.aluno.persistencia..' should only have dependent classes that reside in any package ['com.example.grupo12_praticaatdd.aluno.persistencia..', 'com.example.grupo12_praticaatdd.aluno.aplicacao..'], because outros modulos so podem usar o contrato publico (aplicacao) do modulo aluno' was violated (1 times):
+Field <com.example.grupo12_praticaatdd.premiacao.aplicacao.PremiacaoService.atalhoProibido> has type <com.example.grupo12_praticaatdd.aluno.persistencia.AlunoRepository> in (PremiacaoService.java:0)
+[ERROR]   ArquiteturaModularTest.persistenciaDoAlunoEPrivada Architecture Violation [Priority: MEDIUM] - Rule 'classes that reside in a package 'com.example.grupo12_praticaatdd.aluno.persistencia..' should only have dependent classes that reside in any package ['com.example.grupo12_praticaatdd.aluno.persistencia..', 'com.example.grupo12_praticaatdd.aluno.aplicacao..'], because outros modulos so podem usar o contrato publico (aplicacao) do modulo aluno' was violated (1 times):
+[ERROR] Tests run: 11, Failures: 1, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE

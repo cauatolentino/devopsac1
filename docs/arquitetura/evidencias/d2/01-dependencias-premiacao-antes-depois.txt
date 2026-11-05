@@ -1,0 +1,53 @@
+# Desafio 2 - dependencias do modulo premiacao ANTES (estado ao fim do Desafio 1)
+# jdeps -verbose:class -e 'com\.example\..*' target/classes | grep premiacao   (prefixo com.example.grupo12_praticaatdd. omitido)
+# O caso de uso (PremiacaoService) dependia das IMPLEMENTACOES dos outros modulos:
+#   aluno.aplicacao.AlunoService e engajamento.aplicacao.EngajamentoService
+
+premiacao.aplicacao.PremiacaoService -> aluno.aplicacao.AlunoResumo
+premiacao.aplicacao.PremiacaoService -> aluno.aplicacao.AlunoService
+premiacao.aplicacao.PremiacaoService -> aluno.dominio.Aluno
+premiacao.aplicacao.PremiacaoService -> compartilhado.MesReferencia
+premiacao.aplicacao.PremiacaoService -> engajamento.aplicacao.EngajamentoService
+premiacao.aplicacao.PremiacaoService -> engajamento.aplicacao.ParticipacaoResumo
+premiacao.aplicacao.PremiacaoService -> engajamento.dominio.ParticipacaoForum
+premiacao.aplicacao.PremiacaoService -> premiacao.dominio.Forum
+premiacao.dominio.Forum -> aluno.dominio.Aluno
+premiacao.dominio.Forum -> engajamento.dominio.ParticipacaoForum
+premiacao.web.PremiacaoController -> premiacao.aplicacao.PremiacaoService
+premiacao.web.PremiacaoController -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.web.PremiacaoDTO -> premiacao.aplicacao.ResultadoPremiacao
+
+
+# DEPOIS (Ports & Adapters)
+# O caso de uso so depende de: dominio, porta.entrada, porta.saida e compartilhado.
+# Quem conhece aluno/engajamento agora sao SO os adapters em premiacao.adaptador.saida.modulos.
+
+premiacao.adaptador.entrada.web.PremiacaoController -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.adaptador.entrada.web.PremiacaoController -> premiacao.aplicacao.porta.entrada.EncerrarMes
+premiacao.adaptador.entrada.web.PremiacaoDTO -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.adaptador.saida.modulos.CursosDoAlunoAdapter -> aluno.aplicacao.AlunoResumo
+premiacao.adaptador.saida.modulos.CursosDoAlunoAdapter -> aluno.aplicacao.AlunoService
+premiacao.adaptador.saida.modulos.CursosDoAlunoAdapter -> premiacao.aplicacao.porta.saida.CreditoDeCursos
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> aluno.aplicacao.AlunoService
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> aluno.dominio.Aluno
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> engajamento.aplicacao.EngajamentoService
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> engajamento.aplicacao.ParticipacaoResumo
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> engajamento.dominio.ParticipacaoForum
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> premiacao.aplicacao.porta.saida.FonteDeEngajamento
+premiacao.adaptador.saida.modulos.EngajamentoDoForumAdapter -> premiacao.aplicacao.porta.saida.ParticipanteDoMes
+premiacao.adaptador.saida.persistencia.HistoricoDePremiacoesJpa -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.adaptador.saida.persistencia.HistoricoDePremiacoesJpa -> premiacao.aplicacao.porta.saida.HistoricoDePremiacoes
+premiacao.aplicacao.PremiacaoService -> aluno.dominio.Aluno
+premiacao.aplicacao.PremiacaoService -> compartilhado.MesReferencia
+premiacao.aplicacao.PremiacaoService -> engajamento.dominio.ParticipacaoForum
+premiacao.aplicacao.PremiacaoService -> premiacao.aplicacao.porta.entrada.EncerrarMes
+premiacao.aplicacao.PremiacaoService -> premiacao.aplicacao.porta.saida.CreditoDeCursos
+premiacao.aplicacao.PremiacaoService -> premiacao.aplicacao.porta.saida.FonteDeEngajamento
+premiacao.aplicacao.PremiacaoService -> premiacao.aplicacao.porta.saida.HistoricoDePremiacoes
+premiacao.aplicacao.PremiacaoService -> premiacao.aplicacao.porta.saida.ParticipanteDoMes
+premiacao.aplicacao.PremiacaoService -> premiacao.dominio.Forum
+premiacao.aplicacao.porta.entrada.EncerrarMes -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.aplicacao.porta.saida.HistoricoDePremiacoes -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.aplicacao.porta.saida.ParticipanteDoMes -> engajamento.dominio.ParticipacaoForum
+premiacao.dominio.Forum -> aluno.dominio.Aluno
+premiacao.dominio.Forum -> engajamento.dominio.ParticipacaoForum

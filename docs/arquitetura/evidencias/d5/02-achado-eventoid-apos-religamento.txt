@@ -1,0 +1,12 @@
+# Desafio 5 - achado do mini-lab: eventoId do dispositivo precisa sobreviver a religamento
+#
+# Na 1a execucao o eventoId era <dispositivo>-<sequencia>. No cenario 5 o simulador foi reiniciado
+# e voltou a gerar leitor-07-00001, 00002... Isso so 'funcionou' porque o Core tambem reiniciou com H2
+# limpo. Com o banco persistente (PostgreSQL), eventos NOVOS e legitimos teriam sido descartados como
+# DUPLICATA - perda silenciosa de dados, exatamente o que o Desafio pede para impedir.
+#
+# Correcao: eventoId = <dispositivo>-<boot>-<sequencia>, com boot = instante do religamento em ms.
+# Novo teste no simulador: test_dispositivo_religado_nao_repete_ids_do_boot_anterior.
+# Novo cenario no mini-lab (3b): dispositivo religado 2x publica 6 eventos -> Core registra os 6.
+#
+# Em hardware real a mesma ideia vale: contador de boot em memoria nao volatil (EEPROM/flash) ou UUID.

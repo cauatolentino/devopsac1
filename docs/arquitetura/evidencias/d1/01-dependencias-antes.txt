@@ -1,0 +1,43 @@
+# Desafio 1 - dependencias ANTES da modularizacao (estrutura em camadas tecnicas da AC1)
+# Gerado com o jdeps do JDK 21 sobre target/classes:
+#   jdeps -verbose:package -e 'com\.example\..*' target/classes
+#   jdeps -verbose:class   -e 'com\.example\..*' target/classes
+# Prefixo omitido: com.example.grupo12_praticaatdd.
+
+## Pacote -> pacote
+controller -> dto
+controller -> service
+dto -> entity
+entity -> domain
+repository -> entity
+service -> domain
+service -> dto
+service -> entity
+service -> repository
+
+## Classe -> classe (25 arestas)
+controller.ForumController -> dto.AlunoDTO
+controller.ForumController -> dto.NovaParticipacaoDTO
+controller.ForumController -> dto.NovoAlunoDTO
+controller.ForumController -> dto.ParticipacaoDTO
+controller.ForumController -> dto.PremiacaoDTO
+controller.ForumController -> service.ForumService
+controller.TratadorDeErros -> service.RecursoNaoEncontradoException
+dto.AlunoDTO -> entity.AlunoEntity
+dto.ParticipacaoDTO -> entity.AlunoEntity
+dto.ParticipacaoDTO -> entity.ParticipacaoForumEntity
+entity.AlunoEntity -> domain.Aluno
+repository.AlunoRepository -> entity.AlunoEntity
+repository.ParticipacaoForumRepository -> entity.ParticipacaoForumEntity
+service.ForumService -> domain.Aluno
+service.ForumService -> domain.Forum
+service.ForumService -> domain.ParticipacaoForum
+service.ForumService -> dto.AlunoDTO
+service.ForumService -> dto.NovaParticipacaoDTO
+service.ForumService -> dto.NovoAlunoDTO
+service.ForumService -> dto.ParticipacaoDTO
+service.ForumService -> dto.PremiacaoDTO
+service.ForumService -> entity.AlunoEntity
+service.ForumService -> entity.ParticipacaoForumEntity
+service.ForumService -> repository.AlunoRepository
+service.ForumService -> repository.ParticipacaoForumRepository

@@ -1,0 +1,37 @@
+# Desafio 5 - testes automatizados
+
+## Simulador (pytest no docker build)
+  6 passed (inclui: buffer offline preserva ordem; buffer cheio descarta o mais antigo e conta;
+            dispositivo religado nao repete ids; MQTT menor que HTTP para o mesmo evento)
+
+## Core (Java)
+### iot.adaptador.entrada.mqtt.TradutorDeMensagemIotTest
+  OK  atividadeOpcional  (0.005 s)
+  OK  traduzMensagemValida  (0.002 s)
+  OK  payloadInvalido(String)[1]  (0.019 s)
+  OK  payloadInvalido(String)[2]  (0.004 s)
+  OK  payloadInvalido(String)[3]  (0.005 s)
+  OK  payloadInvalido(String)[4]  (0.003 s)
+  OK  payloadInvalido(String)[5]  (0.002 s)
+  OK  payloadInvalido(String)[6]  (0.003 s)
+  OK  topicoInvalido(String)[1]  (0.002 s)
+  OK  topicoInvalido(String)[2]  (0.001 s)
+  OK  topicoInvalido(String)[3]  (0.004 s)
+  OK  topicoInvalido(String)[4]  (0.001 s)
+  OK  topicoInvalido(String)[5]  (0.001 s)
+### iot.adaptador.entrada.mqtt.ConsumidorDeEventosIotTest
+  OK  mensagemValida  (0.033 s)
+  OK  topologia  (0.002 s)
+  OK  mensagemInvalidaRejeitada  (0.006 s)
+### iot.aplicacao.EventosDeLaboratorioServiceTest
+  OK  ordemCronologica  (0.034 s)
+  OK  duplicataDescartada  (0.015 s)
+### iot.dominio.EventoDeLaboratorioTest
+  OK  camposObrigatorios  (0.007 s)
+### iot.adaptador.entrada.web.LaboratorioControllerTest
+  OK  eventosDoAluno  (0.053 s)
+
+## Suite completa
+[INFO] Tests run: 135, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

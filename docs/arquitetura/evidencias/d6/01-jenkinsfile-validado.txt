@@ -1,0 +1,14 @@
+# Desafio 6 - Jenkinsfile validado no linter declarativo oficial do Jenkins
+#
+# Nao ha Jenkins nesta maquina (o da AC1 roda em outro ambiente). Subimos um Jenkins LTS (jdk21) em
+# container, so com os plugins de pipeline, e enviamos o Jenkinsfile para
+#   POST /pipeline-model-converter/validate
+
+## Jenkinsfile do repositorio:
+Jenkinsfile successfully validated.
+
+
+## Controle negativo (copia com 'stages' trocado por 'stagez' de proposito) - o linter rejeita:
+Errors encountered validating Jenkinsfile:
+WorkflowScript: 44: Undefined section "stagez" @ line 44, column 5.
+       stagez {

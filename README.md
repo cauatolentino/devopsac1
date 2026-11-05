@@ -6,10 +6,16 @@ aplicado ao estudo de caso **Educação Continuada Gamificada**, com Spring Boot
 
 | | |
 |---|---|
-| **Testes** | 46 passando |
+| **Testes** | 46 na AC1 → **143 no B1** (Java), todos passando + 17 testes pytest nos serviços Python |
 | **Cobertura** | **100%** de instruções, linhas e branches (travado no build por `jacoco:check`) |
 | **Cenários BDD** | 8 cenários / 29 passos, todos passando |
 | **Evidências** | [`docs/evidencias/`](docs/evidencias/README.md) |
+
+> ### 🏛️ B1 — Architecture Lab
+> O mesmo produto evoluiu por **6 decisões arquiteturais** (RF → RNF → ASR + RPC → alternativas →
+> ADR → C4 → evidência). O registro completo e cumulativo está em
+> **[`docs/arquitetura/README.md`](docs/arquitetura/README.md)**, os ADRs em [`docs/adr/`](docs/adr/) e
+> o resumo está na seção [B1 — Architecture Lab](#b1--architecture-lab) abaixo.
 
 ---
 
@@ -134,7 +140,14 @@ fecha o ATDD: o critério de aceite executa contra a regra de negócio de verdad
 
 ## TDD — ciclo RED / GREEN / BLUE
 
-Estrutura de pacotes pedida no enunciado:
+> **Nota (B1):** na AC1 o domínio ficava nos pacotes `domain`/`domaintest`, como o enunciado pedia,
+> e as evidências abaixo e em `docs/evidencias/` são o registro histórico daquela entrega. No B1
+> (Desafio 1) o Core virou um monólito modular, e as **mesmas classes e os mesmos testes, sem
+> alterar uma linha de lógica**, foram para os módulos:
+> `domain.Aluno` → `aluno.dominio.Aluno` · `domain.ParticipacaoForum` → `engajamento.dominio.ParticipacaoForum` ·
+> `domain.Forum` → `premiacao.dominio.Forum` (e os testes de `domaintest` para os pacotes equivalentes em `src/test`).
+
+Estrutura de pacotes pedida no enunciado da AC1:
 
 ```
 src/main/java/com/example/grupo12_praticaatdd/domain/       <- pacote Domain
@@ -223,21 +236,26 @@ O `pom.xml` tem uma regra do JaCoCo que **quebra o build** se a cobertura regred
 
 ## Arquitetura
 
+Desde o B1 o Core é um **monólito modular** (ADR-001). As fronteiras são verificadas no build por
+25 regras ArchUnit ([`ArquiteturaModularTest`](src/test/java/com/example/grupo12_praticaatdd/arquitetura/ArquiteturaModularTest.java)).
+
 ```
 com.example.grupo12_praticaatdd
-├── domain/         Aluno, ParticipacaoForum, Forum   <- regra de negócio, construída por TDD
-├── entity/         AlunoEntity, ParticipacaoForumEntity   (JPA)
-├── repository/     AlunoRepository, ParticipacaoForumRepository   (Spring Data JPA)
-├── dto/            AlunoDTO, NovoAlunoDTO, NovaParticipacaoDTO, ParticipacaoDTO, PremiacaoDTO
-├── service/        ForumService, RecursoNaoEncontradoException
-├── controller/     ForumController, TratadorDeErros, ErroDTO
-└── config/         OpenApiConfig
+├── aluno/          web · aplicacao (contrato público) · dominio (Aluno) · persistencia
+├── engajamento/    RF01 ranking — web · aplicacao · dominio (ParticipacaoForum) · persistencia
+├── premiacao/      RF02 conquistas — HEXAGONAL (ADR-002)
+│   ├── dominio/        Forum (regra da US1, construída por TDD)
+│   ├── aplicacao/      PremiacaoService + porta/entrada + porta/saida
+│   └── adaptador/      entrada/web · saida/modulos · saida/persistencia · saida/eventos
+├── recomendacao/   RF03 — porta para a IA Python + fallback (ADR-003)
+├── eventos/        outbox + relay + RabbitMQ (ADR-004)
+├── iot/            RF06 — consumidor MQTT/AMQP + camada anticorrupção (ADR-005)
+└── compartilhado/  erros, validação de mês, OpenAPI
 ```
 
-Decisão importante: **o domínio é separado das entidades JPA**. As classes do pacote `domain` não
-conhecem Spring nem Hibernate — por isso continuam testáveis sem subir contexto e sem banco, que é
-exatamente o que o TDD precisa. O `ForumService` carrega os dados do banco, monta um `Forum` do
-domínio, chama `premiarAlunoDoMes()` e persiste o resultado.
+Continua valendo a decisão da AC1: **o domínio é separado das entidades JPA**. As classes de
+`*.dominio` não conhecem Spring nem Hibernate (agora é uma regra do build), e por isso continuam
+testáveis sem subir contexto e sem banco.
 
 ---
 
@@ -249,7 +267,10 @@ domínio, chama `premiarAlunoDoMes()` e persiste o resultado.
 | `GET` | `/api/alunos` | Lista os alunos e quantos cursos cada um já ganhou |
 | `POST` | `/api/participacoes` | Registra a participação de um aluno no fórum no mês |
 | `GET` | `/api/forum/engajamento?mes=AAAA-MM` | Ranking de engajamento do mês |
-| `POST` | `/api/forum/encerrar-mes?mes=AAAA-MM` | **Aplica a US1**: premia com 1 curso o aluno de maior engajamento |
+| `POST` | `/api/forum/encerrar-mes?mes=AAAA-MM` | **Aplica a US1**: premia com 1 curso o aluno de maior engajamento (idempotente desde o B1) |
+| `GET` | `/api/recomendacoes?aluno=` | *(B1)* cursos recomendados pela IA Python; `degradado=true` se a IA estiver fora |
+| `GET` | `/api/laboratorio/eventos?aluno=` | *(B1)* eventos IoT de laboratório (presença, início/conclusão de atividade) |
+| `GET` | `/actuator/health/readiness` · `/actuator/prometheus` | *(B1)* readiness e métricas |
 
 Erros seguem um corpo padrão (`ErroDTO`): `400` para violação de regra do domínio
 (nome em branco, quantidade negativa, mês fora do formato `AAAA-MM`) e `404` para aluno inexistente.
@@ -314,6 +335,13 @@ Sobe quatro containers:
 | `pgadmin` | `grupo12-pgadmin` | http://localhost:5050 | PgAdmin, **já com a conexão registrada** |
 | `backend` | `grupo12-backend` | http://localhost:8080 | API Spring Boot no perfil `postgres` |
 | `frontend` | `grupo12-frontend` | http://localhost:5173 | Front VueJS servido por nginx |
+| `ia-recomendacao` | `grupo12-ia-recomendacao` | http://localhost:8000/docs | *(B1)* IA de recomendação — Python/FastAPI |
+| `rabbitmq` | `grupo12-rabbitmq` | http://localhost:15672 · MQTT `:1883` | *(B1)* broker de eventos (AMQP) e de IoT (MQTT) |
+| `notificacao` | `grupo12-notificacao` | — | *(B1)* consumidor de notificações — Python |
+| `prometheus` | `grupo12-prometheus` | http://localhost:9090 | *(B1)* métricas e alertas por ADR |
+| `grafana` | `grupo12-grafana` | http://localhost:3000 | *(B1)* dashboard "B1 - ASRs da Arquitetura" |
+
+Simulador IoT (sob demanda): `docker compose run --rm iot-simulador --host rabbitmq --cenario intermitente`
 
 Detalhes:
 
@@ -362,7 +390,28 @@ Relatório do Cucumber em `target/cucumber-report.html`.
 | Cobertura | JaCoCo 0.8.13 |
 | Front-end | Vue 3 + Vite, servido por nginx |
 | Infra | Docker, Docker Compose, PgAdmin |
+| Arquitetura (B1) | ArchUnit (regras no build), jdeps |
+| Serviços Python (B1) | Python 3.12, FastAPI, pika, paho-mqtt, pytest |
+| Mensageria (B1) | RabbitMQ 3.13 (AMQP + plugin MQTT), padrão Transactional Outbox |
+| Observabilidade (B1) | Spring Boot Actuator, Micrometer, Prometheus, Grafana |
+| CI/CD | Jenkins (Jenkinsfile com CI por componente e verificação arquitetural) |
 | IDE | IntelliJ IDEA Ultimate |
+
+---
+
+## B1 — Architecture Lab
+
+| # | Desafio | Decisão | ADR | Evidência principal |
+|---|---|---|---|---|
+| 1 | Drivers e evolução do Core | **Monólito Modular** por capacidade (não serviços) | [ADR-001](docs/adr/ADR-001-core-monolito-modular.md) | jdeps antes/depois, ArchUnit, contrato da API idêntico |
+| 2 | Organização interna do Core | **Ports & Adapters só na premiação** | [ADR-002](docs/adr/ADR-002-ports-and-adapters-na-premiacao.md) | caso de uso sem Spring; mesmo contrato com adapter fake e JPA |
+| 3 | Serviço Python e IA | **IA em serviço Python separado**, ML e RAG em fronteiras distintas | [ADR-003](docs/adr/ADR-003-ia-em-servico-python-separado.md) | IA parada/lenta/503 → HTTP 200 degradado |
+| 4 | Comunicação e eventos | **Premiação síncrona; notificação por Outbox + RabbitMQ** | [ADR-004](docs/adr/ADR-004-outbox-e-rabbitmq-para-notificacoes.md) | consumidor e broker fora, 0 eventos perdidos |
+| 5 | IoT e MQTT | **MQTT no mesmo RabbitMQ** (plugin), sem segundo broker | [ADR-005](docs/adr/ADR-005-iot-mqtt-no-rabbitmq-existente.md) | 7 cenários: offline, duplicata, reboot, inválido |
+| 6 | CI/CD e observabilidade | **Um Jenkinsfile, ciclos por componente; métricas por ASR** | [ADR-006](docs/adr/ADR-006-pipeline-por-componente-e-metricas-de-asr.md) | verificação arquitetural em HOMOL, alertas no Prometheus |
+
+Registro completo, matriz cumulativa de ASRs, C4 e síntese para a AF:
+**[`docs/arquitetura/README.md`](docs/arquitetura/README.md)**.
 
 ---
 

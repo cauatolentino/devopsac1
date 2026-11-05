@@ -1,0 +1,48 @@
+# Desafio 4 - achado durante o mini-lab: broker inalcancavel por ~3 min e NENHUM evento perdido
+#
+# Na 1a execucao, o container RabbitMQ recem-criado (1o boot) nao ficou alcancavel pela rede nesta
+# maquina (Docker Desktop / Windows) ate ser reiniciado - nem pelo Core, nem pelo consumidor Python.
+# Nao e defeito do sistema, mas virou um teste real de recuperabilidade: durante ~3 minutos o relay
+# tentou a cada 2 s, os 4 encerramentos de mes responderam HTTP 200 normalmente, e quando o broker
+# voltou os 4 eventos foram entregues EM ORDEM e as 4 notificacoes enviadas. O roteiro final faz um
+# restart preventivo do broker antes de ligar os clientes.
+#
+# Outros 2 defeitos encontrados e corrigidos no caminho:
+#  - consumidor Python morria com socket.gaierror (nome do broker some do DNS quando ele para):
+#    passou a tratar AMQPError + OSError e reconectar;
+#  - healthcheck do RabbitMQ usava 'ping', que responde antes da porta AMQP abrir: trocado por
+#    'check_port_connectivity' nos dois docker-compose.
+
+## 0. Aquecimento (1a conexao Core->broker e consumidor->broker)
+  [21:05:24] SINCRONO  POST /encerrar-mes?mes=2026-08 -> HTTP 200 em 0.114993s :: "cursosGanhos":1
+
+## 1. Tudo no ar
+  [21:07:38] SINCRONO  POST /encerrar-mes?mes=2026-09 -> HTTP 200 em 0.027560s :: "cursosGanhos":2
+  [21:07:43] filas: 
+  [21:07:43] notificacoes enviadas pelo consumidor ate agora:
+
+## 2. CONSUMIDOR fora do ar (docker stop notif-lab)
+  [21:07:49] SINCRONO  POST /encerrar-mes?mes=2026-10 -> HTTP 200 em 0.031373s :: "cursosGanhos":3
+  [21:07:53] filas: 
+  -> religando o consumidor
+  [21:07:59] filas: 
+  [21:08:00] notificacoes enviadas pelo consumidor ate agora:
+
+## 3. BROKER fora do ar (docker stop rabbit-lab)
+  [21:08:00] SINCRONO  POST /encerrar-mes?mes=2026-11 -> HTTP 200 em 0.015930s :: "cursosGanhos":4
+  [21:08:06] filas: 
+  -> religando o broker
+  [21:08:30] filas: name=messages_ready notificacao.premiacao=0 analytics.premiacao=4 
+  [21:08:31] notificacoes enviadas pelo consumidor ate agora:
+      NOTIFICACAO enviada eventoId=8173ba11-1b2c-45af-90dd-28fa9fb91058 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-08 e ganho
+      NOTIFICACAO enviada eventoId=87801a41-6026-4b6f-9adb-642becf59452 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-09 e ganho
+      NOTIFICACAO enviada eventoId=83f15eb7-9e61-43e3-982f-e0af354aca91 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-10 e ganho
+      NOTIFICACAO enviada eventoId=f0b86d29-8dcb-4895-b410-39bc77a2e125 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-11 e ganho
+
+## Log do relay (resumo: primeira e ultima tentativas)
+2026-11-05T00:05:29.264 WARN Broker indisponivel; evento 8173ba11-1b2c-45af-90dd-28fa9fb91058 continua no outbox (tentativa 1): java.net.UnknownHostException: rabbit-lab:
+2026-11-05T00:05:31.271 WARN Broker indisponivel; evento 8173ba11-1b2c-45af-90dd-28fa9fb91058 continua no outbox (tentativa 2): java.net.UnknownHostException: rabbit-lab
+2026-11-05T00:05:33.276 WARN Broker indisponivel; evento 8173ba11-1b2c-45af-90dd-28fa9fb91058 continua no outbox (tentativa 3): java.net.UnknownHostException: rabbit-lab
+   ... (63 tentativas com falha no total) ...
+2026-11-05T00:08:21.256 WARN Broker indisponivel; evento 8173ba11-1b2c-45af-90dd-28fa9fb91058 continua no outbox (tentativa 63): java.net.ConnectException: Connection ref
+2026-11-05T00:08:23.493 INFO Relay do outbox entregou 4 evento(s) ao broker

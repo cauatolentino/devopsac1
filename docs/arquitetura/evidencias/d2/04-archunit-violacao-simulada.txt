@@ -1,0 +1,12 @@
+# Desafio 2 - falha simulada: reintroduzir a dependencia que foi invertida quebra o build
+# Experimento: no PremiacaoService (nucleo), adicionamos de proposito
+#     private EngajamentoService atalhoProibido;
+# (exatamente a dependencia concreta que existia no fim do Desafio 1).
+# ./mvnw test -Dtest=ArquiteturaModularTest -> BUILD FAILURE, 2 regras violadas. Arquivo restaurado depois.
+
+[ERROR] Tests run: 15, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.378 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.arquitetura.ArquiteturaModularTest
+Field <com.example.grupo12_praticaatdd.premiacao.aplicacao.PremiacaoService.atalhoProibido> has type <com.example.grupo12_praticaatdd.engajamento.aplicacao.EngajamentoService> in (PremiacaoService.java:0)
+[ERROR]   ArquiteturaModularTest.nucleoDaPremiacaoSemPersistenciaNemOutrosModulos Architecture Violation [Priority: MEDIUM] - Rule 'no classes that reside in a package 'com.example.grupo12_praticaatdd.premiacao.aplicacao..' should depend on classes that reside in any package ['jakarta.persistence..', 'org.springframework.data..', '..persistencia..', 'com.example.grupo12_praticaatdd.aluno.aplicacao..', 'com.example.grupo12_praticaatdd.engajamento.aplicacao..'], because o caso de uso fala com banco e com outros modulos somente por portas de saida' was violated (1 times):
+[ERROR]   ArquiteturaModularTest.soOAdapterDeModulosConheceOsOutrosModulos Architecture Violation [Priority: MEDIUM] - Rule 'no classes that reside in a package 'com.example.grupo12_praticaatdd.premiacao..' and reside outside of package 'com.example.grupo12_praticaatdd.premiacao.adaptador.saida.modulos..' should depend on classes that reside in any package ['com.example.grupo12_praticaatdd.aluno.aplicacao..', 'com.example.grupo12_praticaatdd.engajamento.aplicacao..'], because se o ranking virar servico, so o adapter de modulos muda' was violated (1 times):
+[ERROR] Tests run: 15, Failures: 2, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE

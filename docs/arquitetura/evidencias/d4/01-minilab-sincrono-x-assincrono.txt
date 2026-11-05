@@ -1,0 +1,51 @@
+# Desafio 4 - mini-lab: interacao SINCRONA x ASSINCRONA com consumidor e broker indisponiveis
+#
+# SINCRONO : POST /api/forum/encerrar-mes  (registra premiacao + credita curso + grava evento no outbox, 1 transacao)
+# ASSINCRONO: outbox -> relay (a cada 2 s) -> RabbitMQ (exchange gamificacao.eventos) -> fila notificacao.premiacao -> servico notificacao (Python)
+#                                                                                   -> fila analytics.premiacao (consumidor futuro, so acumula)
+# Core, broker e consumidor em containers na mesma rede Docker. Roteiro: minilab-d4.sh (nesta pasta).
+
+## 0. Aquecimento (1a conexao Core->broker e consumidor->broker)
+  [21:12:02] SINCRONO  POST /encerrar-mes?mes=2026-08 -> HTTP 200 em 0.116645s :: "cursosGanhos":1
+  [21:12:05] ok: evento de aquecimento notificado
+
+## 1. Tudo no ar
+  [21:12:05] SINCRONO  POST /encerrar-mes?mes=2026-09 -> HTTP 200 em 0.024873s :: "cursosGanhos":2
+  [21:12:09] filas: name=messages_ready notificacao.premiacao=0 analytics.premiacao=2 
+  [21:12:11] notificacoes enviadas pelo consumidor ate agora:
+      NOTIFICACAO enviada eventoId=b45b19fb-f1aa-45fb-90ec-dce4c9e8a668 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-08 e ganho
+      NOTIFICACAO enviada eventoId=af98fe4e-4d9a-40c2-b694-b22dc7511d4e :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-09 e ganho
+
+## 2. CONSUMIDOR fora do ar (docker stop notif-lab)
+  [21:12:13] SINCRONO  POST /encerrar-mes?mes=2026-10 -> HTTP 200 em 0.031838s :: "cursosGanhos":3
+  [21:12:18] filas: name=messages_ready notificacao.premiacao=1 analytics.premiacao=3 
+  -> religando o consumidor
+  [21:12:26] filas: name=messages_ready notificacao.premiacao=0 analytics.premiacao=3 
+  [21:12:27] notificacoes enviadas pelo consumidor ate agora:
+      NOTIFICACAO enviada eventoId=b45b19fb-f1aa-45fb-90ec-dce4c9e8a668 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-08 e ganho
+      NOTIFICACAO enviada eventoId=af98fe4e-4d9a-40c2-b694-b22dc7511d4e :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-09 e ganho
+      NOTIFICACAO enviada eventoId=68c3c3c0-642d-4347-8b18-0949b5348b13 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-10 e ganho
+
+## 3. BROKER fora do ar (docker stop rabbit-lab)
+  [21:12:29] SINCRONO  POST /encerrar-mes?mes=2026-11 -> HTTP 200 em 0.027260s :: "cursosGanhos":4
+  [21:12:35] filas: 
+  -> religando o broker
+  [21:12:59] filas: name=messages_ready notificacao.premiacao=0 analytics.premiacao=4 
+  [21:13:01] notificacoes enviadas pelo consumidor ate agora:
+      NOTIFICACAO enviada eventoId=b45b19fb-f1aa-45fb-90ec-dce4c9e8a668 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-08 e ganho
+      NOTIFICACAO enviada eventoId=af98fe4e-4d9a-40c2-b694-b22dc7511d4e :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-09 e ganho
+      NOTIFICACAO enviada eventoId=68c3c3c0-642d-4347-8b18-0949b5348b13 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-10 e ganho
+      NOTIFICACAO enviada eventoId=9e19435a-5e2c-4dde-9deb-bf525d398e79 :: Parabens, Carla! Voce foi o aluno mais engajado do forum em 2026-11 e ganho
+
+## Log do relay no Core
+2026-11-05T00:12:04.092 INFO Relay do outbox entregou 1 evento(s) ao broker
+2026-11-05T00:12:06.105 INFO Relay do outbox entregou 1 evento(s) ao broker
+2026-11-05T00:12:14.132 INFO Relay do outbox entregou 1 evento(s) ao broker
+2026-11-05T00:12:32.166 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 1): java.net.SocketTimeoutException: Connect t
+2026-11-05T00:12:38.142 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 2): java.net.UnknownHostException: rabbit-lab:
+2026-11-05T00:12:40.150 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 3): java.net.UnknownHostException: rabbit-lab
+2026-11-05T00:12:42.153 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 4): java.net.UnknownHostException: rabbit-lab
+2026-11-05T00:12:44.159 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 5): java.net.UnknownHostException: rabbit-lab
+2026-11-05T00:12:46.164 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 6): java.net.UnknownHostException: rabbit-lab
+2026-11-05T00:12:48.177 WARN Broker indisponivel; evento 9e19435a-5e2c-4dde-9deb-bf525d398e79 continua no outbox (tentativa 7): java.net.ConnectException: Connection refu
+2026-11-05T00:12:50.206 INFO Relay do outbox entregou 1 evento(s) ao broker

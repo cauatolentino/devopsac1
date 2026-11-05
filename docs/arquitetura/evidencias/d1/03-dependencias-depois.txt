@@ -1,0 +1,65 @@
+# Desafio 1 - dependencias DEPOIS da modularizacao (monolito modular: aluno, engajamento, premiacao)
+# Gerado com o jdeps do JDK 21 sobre target/classes:
+#   jdeps -verbose:package -e 'com\.example\..*' target/classes
+#   jdeps -verbose:class   -e 'com\.example\..*' target/classes
+# Prefixo omitido: com.example.grupo12_praticaatdd.
+
+## Pacote -> pacote
+aluno.aplicacao -> aluno.dominio
+aluno.aplicacao -> aluno.persistencia
+aluno.aplicacao -> compartilhado
+aluno.persistencia -> aluno.dominio
+aluno.web -> aluno.aplicacao
+compartilhado.web -> compartilhado
+engajamento.aplicacao -> aluno.aplicacao
+engajamento.aplicacao -> aluno.dominio
+engajamento.aplicacao -> compartilhado
+engajamento.aplicacao -> engajamento.dominio
+engajamento.aplicacao -> engajamento.persistencia
+engajamento.dominio -> aluno.dominio
+engajamento.web -> engajamento.aplicacao
+premiacao.aplicacao -> aluno.aplicacao
+premiacao.aplicacao -> aluno.dominio
+premiacao.aplicacao -> compartilhado
+premiacao.aplicacao -> engajamento.aplicacao
+premiacao.aplicacao -> engajamento.dominio
+premiacao.aplicacao -> premiacao.dominio
+premiacao.dominio -> aluno.dominio
+premiacao.dominio -> engajamento.dominio
+premiacao.web -> premiacao.aplicacao
+
+## Classe -> classe (34 arestas)
+aluno.aplicacao.AlunoResumo -> aluno.persistencia.AlunoEntity
+aluno.aplicacao.AlunoService -> aluno.dominio.Aluno
+aluno.aplicacao.AlunoService -> aluno.persistencia.AlunoEntity
+aluno.aplicacao.AlunoService -> aluno.persistencia.AlunoRepository
+aluno.aplicacao.AlunoService -> compartilhado.RecursoNaoEncontradoException
+aluno.persistencia.AlunoEntity -> aluno.dominio.Aluno
+aluno.web.AlunoController -> aluno.aplicacao.AlunoResumo
+aluno.web.AlunoController -> aluno.aplicacao.AlunoService
+aluno.web.AlunoDTO -> aluno.aplicacao.AlunoResumo
+compartilhado.web.TratadorDeErros -> compartilhado.RecursoNaoEncontradoException
+engajamento.aplicacao.EngajamentoService -> aluno.aplicacao.AlunoResumo
+engajamento.aplicacao.EngajamentoService -> aluno.aplicacao.AlunoService
+engajamento.aplicacao.EngajamentoService -> aluno.dominio.Aluno
+engajamento.aplicacao.EngajamentoService -> compartilhado.MesReferencia
+engajamento.aplicacao.EngajamentoService -> engajamento.dominio.ParticipacaoForum
+engajamento.aplicacao.EngajamentoService -> engajamento.persistencia.ParticipacaoForumEntity
+engajamento.aplicacao.EngajamentoService -> engajamento.persistencia.ParticipacaoForumRepository
+engajamento.dominio.ParticipacaoForum -> aluno.dominio.Aluno
+engajamento.web.EngajamentoController -> engajamento.aplicacao.EngajamentoService
+engajamento.web.EngajamentoController -> engajamento.aplicacao.ParticipacaoResumo
+engajamento.web.ParticipacaoDTO -> engajamento.aplicacao.ParticipacaoResumo
+premiacao.aplicacao.PremiacaoService -> aluno.aplicacao.AlunoResumo
+premiacao.aplicacao.PremiacaoService -> aluno.aplicacao.AlunoService
+premiacao.aplicacao.PremiacaoService -> aluno.dominio.Aluno
+premiacao.aplicacao.PremiacaoService -> compartilhado.MesReferencia
+premiacao.aplicacao.PremiacaoService -> engajamento.aplicacao.EngajamentoService
+premiacao.aplicacao.PremiacaoService -> engajamento.aplicacao.ParticipacaoResumo
+premiacao.aplicacao.PremiacaoService -> engajamento.dominio.ParticipacaoForum
+premiacao.aplicacao.PremiacaoService -> premiacao.dominio.Forum
+premiacao.dominio.Forum -> aluno.dominio.Aluno
+premiacao.dominio.Forum -> engajamento.dominio.ParticipacaoForum
+premiacao.web.PremiacaoController -> premiacao.aplicacao.PremiacaoService
+premiacao.web.PremiacaoController -> premiacao.aplicacao.ResultadoPremiacao
+premiacao.web.PremiacaoDTO -> premiacao.aplicacao.ResultadoPremiacao

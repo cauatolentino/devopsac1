@@ -1,0 +1,32 @@
+# Desafio 6 - testes automatizados
+
+### recomendacao.adaptador.saida.ia.DisjuntorDoMotorTest
+  OK  meioAberto  (0.003 s)
+  OK  beanComMetrica  (0.082 s)
+  OK  fechadoComFalhaIsolada  (0.002 s)
+  OK  abreENaoChamaAIa  (0.002 s)
+### recomendacao.adaptador.saida.ia.PrazoTotalDoMotorTest
+  OK  estouraOPrazo  (0.206 s)
+  OK  dentroDoPrazo  (0.004 s)
+  OK  traducaoDeFalhas  (0.014 s)
+  OK  interrompida  (0.003 s)
+### recomendacao.aplicacao.RecomendacaoServiceTest
+  OK  alunoInexistente  (0.021 s)
+  OK  enviaPerfilCompletoParaAIa  (0.074 s)
+  OK  iaIndisponivelUsaCatalogoPadrao  (0.024 s)
+### eventos.aplicacao.RegistroDeEventosTest
+  OK  rollbackLevaOEventoJunto  (0.133 s)
+  OK  foraDeTransacaoFalha  (0.009 s)
+  OK  dentroDaTransacaoFicaPendente  (0.1 s)
+### iot.adaptador.entrada.mqtt.ConsumidorDeEventosIotTest
+  OK  mensagemValida  (0.025 s)
+  OK  topologia  (0.002 s)
+  OK  mensagemInvalidaRejeitada  (0.003 s)
+
+## Configuracao de observabilidade validada com promtool (imagem oficial do Prometheus)
+  prometheus.yml: SUCCESS (1 rule file)   alertas.yml: SUCCESS (5 rules)   dashboard JSON: valido
+
+## Suite completa
+[INFO] Tests run: 143, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

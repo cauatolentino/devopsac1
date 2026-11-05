@@ -1,0 +1,10 @@
+# Desafio 3 - falha simulada: um modulo do fluxo essencial passando a depender da IA
+# Experimento: no CursosDoAlunoAdapter (modulo premiacao) adicionamos
+#     private RecomendacaoService atalhoProibido;
+# ./mvnw test -Dtest=ArquiteturaModularTest -> BUILD FAILURE. Arquivo restaurado depois.
+
+[ERROR] Tests run: 18, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.413 s <<< FAILURE! -- in com.example.grupo12_praticaatdd.arquitetura.ArquiteturaModularTest
+Field <com.example.grupo12_praticaatdd.premiacao.adaptador.saida.modulos.CursosDoAlunoAdapter.atalhoProibido> has type <com.example.grupo12_praticaatdd.recomendacao.aplicacao.RecomendacaoService> in (CursosDoAlunoAdapter.java:0)
+[ERROR]   ArquiteturaModularTest.fluxoEssencialNaoDependeDaIa Architecture Violation [Priority: MEDIUM] - Rule 'no classes that reside in any package ['com.example.grupo12_praticaatdd.aluno..', 'com.example.grupo12_praticaatdd.engajamento..', 'com.example.grupo12_praticaatdd.premiacao..'] should depend on classes that reside in a package 'com.example.grupo12_praticaatdd.recomendacao..', because a indisponibilidade da IA nao pode bloquear cadastro, participacao, ranking e premiacao' was violated (1 times):
+[ERROR] Tests run: 18, Failures: 1, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE

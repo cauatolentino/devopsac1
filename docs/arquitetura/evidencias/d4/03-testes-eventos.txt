@@ -1,0 +1,35 @@
+# Desafio 4 - testes automatizados
+
+## Servico de notificacao (pytest no docker build)
+  3 passed (inclui: mesmo evento entregue 2x notifica 1x)
+
+## Core (Java)
+### eventos.relay.RelayDoOutboxTest
+  OK  erroLongoOuNulo  (0.025 s)
+  OK  entregaPendentesEmOrdem  (0.077 s)
+  OK  semPendentes  (0.025 s)
+  OK  brokerForaMantemPendente  (0.049 s)
+### eventos.aplicacao.RegistroDeEventosTest
+  OK  rollbackLevaOEventoJunto  (0.106 s)
+  OK  foraDeTransacaoFalha  (0.005 s)
+  OK  dentroDaTransacaoFicaPendente  (0.017 s)
+### eventos.rabbit.PublicadorRabbitMqTest
+  OK  semConfirmacaoFalha  (0.027 s)
+  OK  topologia  (0.004 s)
+  OK  enviaEsperaConfirmacao  (0.017 s)
+### eventos.relay.AgendadorDoRelayTest
+  OK  disparaRelay  (0.091 s)
+### premiacao.adaptador.saida.eventos.EventosDePremiacaoNoOutboxTest
+  OK  escapaCaracteresEspeciais  (0.007 s)
+  OK  registraEventoNoOutbox  (0.089 s)
+### premiacao.aplicacao.PremiacaoServiceUnitarioTest
+  OK  mesVazioNaoPremia  (0.003 s)
+  OK  premiaOMaiorEngajamento  (0.005 s)
+  OK  mesJaPremiadoNaoPremiaDeNovo  (0.0 s)
+  OK  usaAParticipacaoVencedoraDoAluno  (0.001 s)
+  OK  mesInvalidoERejeitado  (0.002 s)
+
+## Suite completa
+[INFO] Tests run: 112, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

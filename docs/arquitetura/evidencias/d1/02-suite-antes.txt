@@ -1,0 +1,12 @@
+# Suite completa ANTES da refatoracao (./mvnw clean verify)
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.239 s -- in com.example.grupo12_praticaatdd.controller.ForumControllerTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.example.grupo12_praticaatdd.domaintest.AlunoTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in com.example.grupo12_praticaatdd.domaintest.ForumTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.example.grupo12_praticaatdd.domaintest.ParticipacaoForumTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.16 s -- in com.example.grupo12_praticaatdd.Grupo12PraticaAtddApplicationTests
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.895 s -- in com.example.grupo12_praticaatdd.repository.ParticipacaoForumRepositoryTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.209 s -- in com.example.grupo12_praticaatdd.service.ForumServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.426 s -- in com.example.grupo12_praticaatdd.bdd.ExecutarCenariosBddTest
+[INFO] Tests run: 46, Failures: 0, Errors: 0, Skipped: 0
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS

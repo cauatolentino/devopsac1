@@ -1,8 +1,8 @@
 package com.example.grupo12_praticaatdd.bdd;
 
-import com.example.grupo12_praticaatdd.domain.Aluno;
-import com.example.grupo12_praticaatdd.domain.Forum;
-import com.example.grupo12_praticaatdd.domain.ParticipacaoForum;
+import com.example.grupo12_praticaatdd.aluno.dominio.Aluno;
+import com.example.grupo12_praticaatdd.premiacao.dominio.Forum;
+import com.example.grupo12_praticaatdd.engajamento.dominio.ParticipacaoForum;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Implementacao dos passos dos cenarios BDD.
  *
- * Os passos falam diretamente com o pacote `domain`, o mesmo codigo construido
+ * Os passos falam diretamente com as classes de dominio (pacotes `*.dominio`), o mesmo codigo construido
  * pelo ciclo TDD. E isso que fecha o ATDD: o criterio de aceite escrito na
  * planilha executa contra a regra de negocio de verdade.
  */
